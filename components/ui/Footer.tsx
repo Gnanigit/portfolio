@@ -69,8 +69,8 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label={label}
                 style={{
-                  width: 36,
-                  height: 36,
+                  width: 44,
+                  height: 44,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -126,10 +126,10 @@ export function Footer() {
                     fontWeight: 500,
                     fontSize: '0.85rem',
                     cursor: 'none',
-                    padding: 0,
+                    padding: '0.5rem 0',
                     transition: 'color 0.2s ease',
                     textAlign: 'left',
-                    minHeight: 28,
+                    minHeight: 44,
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--primary)')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}

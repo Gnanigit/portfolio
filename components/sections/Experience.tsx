@@ -41,7 +41,7 @@ export function Experience() {
           margin: '0 auto',
           position: 'relative',
           zIndex: 1,
-          paddingLeft: '3.5rem',
+          paddingLeft: 'clamp(2.25rem, 7vw, 3.5rem)',
         }}
       >
         {/* Vertical line */}
@@ -67,7 +67,7 @@ export function Experience() {
               <div
                 style={{
                   position: 'absolute',
-                  left: '-2.75rem',
+                  left: 'calc(-1 * clamp(2.25rem, 7vw, 3.5rem) + 16px)',
                   top: '0.35rem',
                   width: 16,
                   height: 16,

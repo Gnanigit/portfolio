@@ -89,10 +89,11 @@ function TiltCard({ project, index }: { project: Project; index: number }) {
             </span>
           </div>
 
-          {/* Overlay on hover */}
+          {/* Overlay on hover (desktop) / always visible (touch) */}
           <motion.div
             animate={{ opacity: hovered ? 1 : 0 }}
             transition={{ duration: 0.2 }}
+            className="project-overlay"
             style={{
               position: 'absolute',
               inset: 0,
@@ -309,7 +310,7 @@ export function Projects() {
               color: activeFilter === tag ? 'var(--bg-base)' : 'var(--text-secondary)',
               border: `1px solid ${activeFilter === tag ? 'var(--primary)' : 'var(--border-default)'}`,
               transition: 'all 0.2s ease',
-              minHeight: 36,
+              minHeight: 44,
             }}
           >
             {tag}
@@ -322,7 +323,7 @@ export function Projects() {
         layout
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
           gap: '1.5rem',
           maxWidth: '1100px',
           margin: '0 auto',
@@ -334,6 +335,13 @@ export function Projects() {
           <TiltCard key={project.id} project={project} index={i} />
         ))}
       </motion.div>
+
+      {/* Show card overlay always on touch devices */}
+      <style>{`
+        @media (hover: none) {
+          .project-overlay { opacity: 1 !important; }
+        }
+      `}</style>
     </section>
   )
 }

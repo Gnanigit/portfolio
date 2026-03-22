@@ -52,6 +52,7 @@ function NodeNetwork({
   const groupRef = useRef<THREE.Group>(null)
   const targetRotX = useRef(0)
   const targetRotY = useRef(0)
+  const elapsed = useRef(0)
 
   const NODE_COUNT = 65
   const RADIUS = 2.1
@@ -72,9 +73,10 @@ function NodeNetwork({
     return new Float32Array(arr)
   }, [nodes])
 
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!groupRef.current) return
-    const t = clock.getElapsedTime()
+    elapsed.current += delta
+    const t = elapsed.current
     targetRotX.current += (mouse.y * 0.28 - targetRotX.current) * 0.04
     targetRotY.current += (mouse.x * 0.28 - targetRotY.current) * 0.04
     groupRef.current.rotation.y = targetRotY.current + t * 0.07
@@ -124,15 +126,15 @@ function OrbitRings({ color }: { color: string }) {
   const threeColor = useMemo(() => new THREE.Color(color), [color])
 
   const configs: { r: number; tube: number; rot: [number, number, number]; op: number; speed: number }[] = [
-    { r: 2.9, tube: 0.007, rot: [Math.PI / 2.8, 0, 0.4],  op: 0.28, speed: 0.04  },
-    { r: 3.45, tube: 0.005, rot: [0.4, 0, Math.PI / 3.5], op: 0.18, speed: -0.03 },
-    { r: 2.6, tube: 0.006, rot: [1.1, 0.2, 0],            op: 0.22, speed: 0.055 },
+    { r: 2.9,  tube: 0.007, rot: [Math.PI / 2.8, 0, 0.4],  op: 0.28, speed:  0.04  },
+    { r: 3.45, tube: 0.005, rot: [0.4, 0, Math.PI / 3.5],  op: 0.18, speed: -0.03  },
+    { r: 2.6,  tube: 0.006, rot: [1.1, 0.2, 0],            op: 0.22, speed:  0.055 },
   ]
 
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!ref.current) return
     ref.current.children.forEach((child, i) => {
-      child.rotation.z += configs[i].speed * 0.016
+      child.rotation.z += configs[i].speed * delta
     })
   })
 
@@ -152,10 +154,12 @@ function OrbitRings({ color }: { color: string }) {
 function PulsingCore({ color }: { color: string }) {
   const ref = useRef<THREE.Mesh>(null)
   const threeColor = useMemo(() => new THREE.Color(color), [color])
+  const elapsed = useRef(0)
 
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!ref.current) return
-    const s = 1 + Math.sin(clock.getElapsedTime() * 1.8) * 0.12
+    elapsed.current += delta
+    const s = 1 + Math.sin(elapsed.current * 1.8) * 0.12
     ref.current.scale.setScalar(s)
   })
 
@@ -171,6 +175,7 @@ function PulsingCore({ color }: { color: string }) {
 function DataParticles({ color }: { color: string }) {
   const ref = useRef<THREE.Points>(null)
   const threeColor = useMemo(() => new THREE.Color(color), [color])
+  const elapsed = useRef(0)
 
   const positions = useMemo(() => {
     const COUNT = 90
@@ -186,11 +191,11 @@ function DataParticles({ color }: { color: string }) {
     return arr
   }, [])
 
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!ref.current) return
-    const t = clock.getElapsedTime()
-    ref.current.rotation.y = t * 0.025
-    ref.current.rotation.x = t * 0.012
+    elapsed.current += delta
+    ref.current.rotation.y = elapsed.current * 0.025
+    ref.current.rotation.x = elapsed.current * 0.012
   })
 
   return (
@@ -208,7 +213,7 @@ function MouseTracker({ setMouse }: { setMouse: (v: { x: number; y: number }) =>
   useEffect(() => {
     const handle = (e: MouseEvent) =>
       setMouse({
-        x: (e.clientX / window.innerWidth) * 2 - 1,
+        x:  (e.clientX / window.innerWidth)  * 2 - 1,
         y: -(e.clientY / window.innerHeight) * 2 + 1,
       })
     window.addEventListener('mousemove', handle, { passive: true })
@@ -238,9 +243,20 @@ function MobileFallback({ color }: { color: string }) {
 
 /* ── exported scene ── */
 export function HeroScene() {
-  const [mouse, setMouse] = useState({ x: 0, y: 0 })
+  const [mouse, setMouse]       = useState({ x: 0, y: 0 })
   const [isMobile, setIsMobile] = useState(false)
-  const primaryColor = usePrimaryColor()
+  const primaryColor            = usePrimaryColor()
+
+  /* suppress r3f's internal THREE.Clock deprecation warning —
+     r3f 9.x still uses Clock internally; fix pending upstream */
+  useEffect(() => {
+    const original = console.warn
+    console.warn = (...args: unknown[]) => {
+      if (typeof args[0] === 'string' && args[0].includes('THREE.Clock')) return
+      original(...args)
+    }
+    return () => { console.warn = original }
+  }, [])
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -253,7 +269,7 @@ export function HeroScene() {
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <MouseTracker setMouse={setMouse} />
       <Canvas
-        camera={{ position: [0, 0, 7], fov: 55 }}
+        camera={{ position: [0, 0.6, 7], fov: 50 }}
         dpr={isMobile ? [1, 1] : [1, 2]}
         gl={{ antialias: !isMobile, alpha: true }}
         style={{ background: 'transparent' }}
@@ -264,10 +280,10 @@ export function HeroScene() {
           <MobileFallback color={primaryColor} />
         ) : (
           <>
-            <PulsingCore color={primaryColor} />
-            <NodeNetwork mouse={mouse} color={primaryColor} />
-            <OrbitRings color={primaryColor} />
-            <DataParticles color={primaryColor} />
+            <PulsingCore    color={primaryColor} />
+            <NodeNetwork    mouse={mouse} color={primaryColor} />
+            <OrbitRings     color={primaryColor} />
+            <DataParticles  color={primaryColor} />
           </>
         )}
       </Canvas>

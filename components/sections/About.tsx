@@ -217,7 +217,7 @@ export function About() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
           .bento-grid {
             grid-template-columns: 1fr !important;
           }
@@ -225,7 +225,7 @@ export function About() {
             grid-column: span 1 !important;
           }
         }
-        @media (min-width: 769px) and (max-width: 1024px) {
+        @media (min-width: 601px) and (max-width: 1024px) {
           .bento-grid {
             grid-template-columns: repeat(2, 1fr) !important;
           }

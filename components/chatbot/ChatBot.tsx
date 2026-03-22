@@ -207,11 +207,9 @@ export function ChatBot() {
                     {PERSONAL.name}&apos;s Assistant
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                    <span className="pulse-dot" style={{ width: 7, height: 7 }}>
-                      <span className="pulse-dot-inner" />
-                    </span>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--color-success)', fontFamily: "'Space Grotesk', sans-serif" }}>
-                      Online
+                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--text-muted)', display: 'inline-block' }} />
+                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: "'Space Grotesk', sans-serif" }}>
+                      Coming Soon
                     </span>
                   </div>
                 </div>
@@ -247,62 +245,61 @@ export function ChatBot() {
               </button>
             </div>
 
-            {/* Messages */}
+            {/* Coming Soon Body */}
             <div
               style={{
                 flex: 1,
-                overflowY: 'auto',
-                padding: '1rem 1.25rem',
-                scrollbarWidth: 'thin',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '2rem 1.5rem',
+                gap: '1rem',
+                textAlign: 'center',
               }}
             >
-              {messages.map((msg) => (
-                <ChatMessage key={msg.id} message={msg} />
-              ))}
-              {loading && <TypingIndicator />}
-
-              {/* Suggested questions */}
-              {showSuggestions && messages.length === 1 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginTop: '0.5rem' }}>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-                    Quick questions
-                  </div>
-                  {SUGGESTED_QUESTIONS.map((q) => (
-                    <button
-                      key={q}
-                      onClick={() => sendMessage(q)}
-                      style={{
-                        background: 'var(--bg-elevated)',
-                        border: '1px solid var(--border-default)',
-                        borderRadius: 'var(--border-radius-md)',
-                        color: 'var(--text-secondary)',
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '0.78rem',
-                        padding: '0.45rem 0.75rem',
-                        textAlign: 'left',
-                        cursor: 'none',
-                        transition: 'all 0.2s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'var(--border-accent)'
-                        e.currentTarget.style.color = 'var(--primary)'
-                        e.currentTarget.style.background = 'var(--primary-subtle)'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'var(--border-default)'
-                        e.currentTarget.style.color = 'var(--text-secondary)'
-                        e.currentTarget.style.background = 'var(--bg-elevated)'
-                      }}
-                    >
-                      {q}
-                    </button>
-                  ))}
-                </div>
-              )}
-              <div ref={messagesEndRef} />
+              <div style={{ fontSize: '2.5rem' }}>🚀</div>
+              <div
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700,
+                  fontSize: '1.05rem',
+                  color: 'var(--text-primary)',
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                Brains Loading...
+              </div>
+              <div
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '0.82rem',
+                  color: 'var(--text-muted)',
+                  lineHeight: 1.6,
+                  maxWidth: 220,
+                }}
+              >
+                This AI assistant is currently under construction. Check back soon — it&apos;ll be worth the wait.
+              </div>
+              <div
+                style={{
+                  marginTop: '0.5rem',
+                  padding: '0.35rem 0.85rem',
+                  borderRadius: '999px',
+                  border: '1px solid var(--border-accent)',
+                  color: 'var(--primary)',
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: '0.72rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Coming Soon
+              </div>
             </div>
 
-            {/* Input */}
+            {/* Disabled Input */}
             <div
               style={{
                 padding: '0.75rem 1rem',
@@ -312,47 +309,40 @@ export function ChatBot() {
                 alignItems: 'center',
                 background: 'var(--bg-elevated)',
                 flexShrink: 0,
+                opacity: 0.45,
+                pointerEvents: 'none',
               }}
             >
               <input
-                ref={inputRef}
                 type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Ask me anything..."
-                disabled={loading}
+                placeholder="Coming soon..."
+                disabled
                 style={{
                   flex: 1,
                   background: 'var(--bg-surface)',
                   border: '1px solid var(--border-default)',
                   borderRadius: 'var(--border-radius-lg)',
-                  color: 'var(--text-primary)',
+                  color: 'var(--text-muted)',
                   fontFamily: "'Inter', sans-serif",
                   fontSize: '0.85rem',
                   padding: '0.55rem 0.9rem',
                   outline: 'none',
-                  transition: 'border-color 0.2s ease',
+                  cursor: 'not-allowed',
                 }}
-                onFocus={(e) => (e.target.style.borderColor = 'var(--border-accent)')}
-                onBlur={(e) => (e.target.style.borderColor = 'var(--border-default)')}
               />
               <button
-                onClick={() => sendMessage(input)}
-                disabled={!input.trim() || loading}
-                aria-label="Send message"
+                disabled
                 style={{
                   width: 36,
                   height: 36,
                   borderRadius: 'var(--border-radius-md)',
-                  background: input.trim() && !loading ? 'var(--primary)' : 'var(--bg-overlay)',
+                  background: 'var(--bg-overlay)',
                   border: 'none',
-                  color: input.trim() && !loading ? 'var(--bg-base)' : 'var(--text-muted)',
-                  cursor: input.trim() && !loading ? 'none' : 'not-allowed',
+                  color: 'var(--text-muted)',
+                  cursor: 'not-allowed',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  transition: 'all 0.2s ease',
                   flexShrink: 0,
                 }}
               >

@@ -123,21 +123,33 @@ export function Contact() {
     }
 
     setSending(true)
+
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+    const templateParams = {
+      from_name: form.name,
+      from_email: form.email,
+      subject: form.subject,
+      message: form.message,
+    }
+
+    console.log('[EmailJS] Service ID:', serviceId)
+    console.log('[EmailJS] Template ID:', templateId)
+    console.log('[EmailJS] Public Key:', publicKey)
+    console.log('[EmailJS] Template Params:', templateParams)
+
     try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        {
-          from_name: form.name,
-          from_email: form.email,
-          subject: form.subject,
-          message: form.message,
-        },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-      )
+      const result = await emailjs.send(serviceId!, templateId!, templateParams, publicKey!)
+      console.log('[EmailJS] Success:', result.status, result.text)
       setForm({ name: '', email: '', subject: '', message: '' })
       showToast('success', 'Message sent! I\'ll get back to you soon.')
-    } catch {
+    } catch (err: unknown) {
+      console.error('[EmailJS] Error:', err)
+      if (err && typeof err === 'object') {
+        console.error('[EmailJS] Status:', (err as { status?: number }).status)
+        console.error('[EmailJS] Text:', (err as { text?: string }).text)
+      }
       showToast('error', 'Failed to send. Try emailing me directly.')
     } finally {
       setSending(false)

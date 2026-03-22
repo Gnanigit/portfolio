@@ -307,8 +307,8 @@ export function Hero() {
               rel="noopener noreferrer"
               aria-label={label}
               style={{
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -345,6 +345,7 @@ export function Hero() {
           position: 'relative',
           height: 'clamp(320px, 50vw, 100%)',
           minHeight: '320px',
+          paddingBottom: '5rem',
           zIndex: 2,
         }}
         className="lg:h-auto"
@@ -368,7 +369,7 @@ export function Hero() {
           alignItems: 'center',
           gap: '0.5rem',
           color: 'var(--text-muted)',
-          zIndex: 2,
+          zIndex: 4,
         }}
         aria-hidden="true"
       >

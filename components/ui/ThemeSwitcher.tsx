@@ -41,6 +41,21 @@ export function ThemeSwitcher() {
           aria-label={`Switch to ${theme.label} theme`}
           title={theme.label}
           style={{
+            width: 44,
+            height: 44,
+            borderRadius: '50%',
+            background: 'transparent',
+            border: 'none',
+            cursor: 'none',
+            padding: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          <span style={{
+            display: 'block',
             width: 18,
             height: 18,
             borderRadius: '50%',
@@ -48,12 +63,9 @@ export function ThemeSwitcher() {
             border: current === theme.value ? `2px solid ${theme.ring}` : '2px solid transparent',
             outline: current === theme.value ? `2px solid ${theme.color}` : 'none',
             outlineOffset: '2px',
-            cursor: 'none',
-            padding: 0,
             transition: 'outline 0.2s ease, border 0.2s ease',
-            flexShrink: 0,
-          }}
-        />
+          }} />
+        </motion.button>
       ))}
     </div>
   )

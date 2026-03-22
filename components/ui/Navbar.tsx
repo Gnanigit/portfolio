@@ -58,7 +58,7 @@ export function Navbar() {
           alignItems: 'center',
           justifyContent: 'space-between',
           transition: 'background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease',
-          background: scrolled ? 'rgba(var(--bg-base-rgb, 15,15,15), 0.85)' : 'transparent',
+          background: scrolled ? 'var(--nav-scrolled-bg)' : 'transparent',
           backdropFilter: scrolled ? 'blur(20px)' : 'none',
           borderBottom: scrolled ? '1px solid var(--border-default)' : '1px solid transparent',
         }}

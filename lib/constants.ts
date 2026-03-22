@@ -15,7 +15,9 @@ export const PERSONAL = {
   roles: [
     'Full Stack Developer',
     'MERN Stack Developer',
-    'React Developer',
+    'React & React Native Developer',
+    'AWS Serverless Engineer',
+    'Generative AI Integrator',
     'Software Developer',
   ],
   availableForWork: true,
