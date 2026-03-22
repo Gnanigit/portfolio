@@ -1,189 +1,201 @@
 import type { Project, Skill, Experience, Stat } from './types'
 
 export const PERSONAL = {
-  name: 'Gnani',
+  name: 'Gnaneswar Yalla',
   initials: 'GN',
-  tagline: 'Building digital experiences that matter.',
-  bio: "I'm a passionate Full Stack Developer specializing in the MERN stack. I craft performant, scalable, and visually compelling web applications — from pixel-perfect UIs to robust server-side architectures. I love turning complex problems into elegant, user-friendly solutions.",
-  location: 'India',
-  email: 'gnani@example.com',
-  github: 'https://github.com/gnani',
-  linkedin: 'https://linkedin.com/in/gnani',
+  tagline: 'Building scalable, AI-powered full stack solutions.',
+  bio: "I'm a Full Stack Developer at Quadric Information Technology, building enterprise-grade applications powered by AI and modern cloud infrastructure. I specialize in the MERN stack, AWS serverless architecture, and integrating Generative AI into real-world products — from government platforms to enterprise SaaS.",
+  location: 'Hyderabad, Telangana, India',
+  email: 'gnani4412@gmail.com',
+  phone: '+91 9392864866',
+  github: 'https://github.com/Gnanigit',
+  linkedin: 'https://linkedin.com/in/gnaneswar-yalla-730ba4250',
   twitter: 'https://twitter.com/gnani',
-  resumeUrl: '/resume.pdf',
+  resumeUrl: '/Gnaneswar_Yalla_Resume.pdf',
   roles: [
     'Full Stack Developer',
     'MERN Stack Developer',
     'React Developer',
-    'Node.js Developer',
-    'TypeScript Engineer',
+    'Software Developer',
   ],
   availableForWork: true,
   funFact: 'I debug with console.log and I\'m not ashamed.',
-  currentlyLearning: 'Next.js 14 App Router + AI integrations',
+  currentlyLearning: 'AWS Serverless Architecture + Generative AI integrations',
 }
 
 export const STATS: Stat[] = [
-  { label: 'Years Experience', value: 3, suffix: '+' },
-  { label: 'Projects Completed', value: 25, suffix: '+' },
-  { label: 'Technologies', value: 15, suffix: '+' },
-  { label: 'Happy Clients', value: 10, suffix: '+' },
+  { label: 'Years Experience', value: 1, suffix: '+' },
+  { label: 'Projects Completed', value: 8, suffix: '+' },
+  { label: 'Technologies', value: 30, suffix: '+' },
+  { label: 'Problems Solved', value: 600, suffix: '+' },
 ]
 
 export const SKILLS: Skill[] = [
   // Frontend
-  { name: 'React', icon: '⚛️', category: 'Frontend' },
+  { name: 'React.js', icon: '⚛️', category: 'Frontend' },
   { name: 'Next.js', icon: '▲', category: 'Frontend' },
+  { name: 'React Native', icon: '📱', category: 'Frontend' },
   { name: 'TypeScript', icon: '🔷', category: 'Frontend' },
   { name: 'JavaScript', icon: '🟡', category: 'Frontend' },
   { name: 'Tailwind CSS', icon: '🎨', category: 'Frontend' },
   { name: 'Framer Motion', icon: '🎬', category: 'Frontend' },
-  { name: 'HTML5', icon: '🧱', category: 'Frontend' },
-  { name: 'CSS3', icon: '💅', category: 'Frontend' },
+  { name: 'SPFx', icon: '🟦', category: 'Frontend' },
+  { name: 'HTML / CSS', icon: '🧱', category: 'Frontend' },
   // Backend
   { name: 'Node.js', icon: '🟢', category: 'Backend' },
   { name: 'Express.js', icon: '🚂', category: 'Backend' },
+  { name: 'AWS Lambda', icon: '⚡', category: 'Backend' },
   { name: 'REST APIs', icon: '🔗', category: 'Backend' },
-  { name: 'GraphQL', icon: '🔺', category: 'Backend' },
-  { name: 'JWT Auth', icon: '🔐', category: 'Backend' },
+  { name: 'Serverless', icon: '☁️', category: 'Backend' },
   // Database
   { name: 'MongoDB', icon: '🍃', category: 'Database' },
   { name: 'PostgreSQL', icon: '🐘', category: 'Database' },
-  { name: 'Redis', icon: '⚡', category: 'Database' },
-  { name: 'Mongoose', icon: '🗄️', category: 'Database' },
+  { name: 'AWS Aurora', icon: '🗄️', category: 'Database' },
+  { name: 'MySQL', icon: '🐬', category: 'Database' },
+  { name: 'Firebase', icon: '🔥', category: 'Database' },
   // Tools & DevOps
-  { name: 'Git', icon: '📦', category: 'Tools & DevOps' },
+  { name: 'AWS EC2 / S3', icon: '☁️', category: 'Tools & DevOps' },
+  { name: 'AWS Bedrock', icon: '🤖', category: 'Tools & DevOps' },
+  { name: 'Azure AD', icon: '🔵', category: 'Tools & DevOps' },
   { name: 'Docker', icon: '🐳', category: 'Tools & DevOps' },
-  { name: 'Vercel', icon: '▲', category: 'Tools & DevOps' },
-  { name: 'AWS', icon: '☁️', category: 'Tools & DevOps' },
-  { name: 'Postman', icon: '📮', category: 'Tools & DevOps' },
+  { name: 'GitHub Actions', icon: '⚙️', category: 'Tools & DevOps' },
+  { name: 'Gemini AI', icon: '✨', category: 'Tools & DevOps' },
+  { name: 'Git', icon: '📦', category: 'Tools & DevOps' },
   { name: 'Figma', icon: '🎭', category: 'Tools & DevOps' },
+  { name: 'Postman', icon: '📮', category: 'Tools & DevOps' },
 ]
 
 export const PROJECTS: Project[] = [
   {
-    id: 'ecommerce-platform',
-    title: 'E-Commerce Platform',
-    description: 'Full-featured online store with real-time inventory, Stripe payments, and admin dashboard.',
+    id: 'conference-astrazeneca',
+    title: 'Conference App – AstraZeneca',
+    description: 'Enterprise conference management with role-based access, Microsoft SSO, and a fully serverless AWS backend.',
     longDescription:
-      'A production-ready e-commerce platform built with Next.js, Node.js, and MongoDB. Features include real-time inventory tracking, Stripe payment integration, JWT authentication, admin dashboard with analytics, and email notifications.',
-    image: '/images/project-ecommerce.jpg',
-    techStack: ['Next.js', 'Node.js', 'MongoDB', 'Stripe', 'TypeScript', 'Tailwind'],
-    liveUrl: 'https://demo.gnani.dev',
-    githubUrl: 'https://github.com/gnani/ecommerce',
+      'Enterprise-grade conference management application for AstraZeneca with role-based access for Admins and Attendees. Integrated Microsoft SSO via Azure AD. Architected a fully serverless backend on AWS Lambda + Aurora PostgreSQL with CloudFront, S3, API Gateway, VPC, Secrets Manager, and KMS.',
+    image: '/images/project-conference.jpg',
+    techStack: ['React', 'AWS Lambda', 'Aurora PostgreSQL', 'API Gateway', 'Azure AD'],
+    liveUrl: '',
+    githubUrl: '',
     featured: true,
   },
   {
-    id: 'task-manager',
-    title: 'Team Task Manager',
-    description: 'Real-time collaborative task management app with drag-and-drop, Kanban boards, and WebSocket sync.',
+    id: 'clofast',
+    title: 'Clofast – AI Reconciliation Platform',
+    description: 'AI-powered enterprise reconciliation platform reducing manual financial effort by 90% using AWS Bedrock and Gemini AI.',
     longDescription:
-      'A collaborative task management tool inspired by Linear. Built with React, Socket.io, and Express. Features drag-and-drop Kanban boards, real-time collaboration, team workspaces, priority labels, and deadline tracking.',
-    image: '/images/project-tasks.jpg',
-    techStack: ['React', 'Node.js', 'Socket.io', 'MongoDB', 'Express'],
-    liveUrl: 'https://tasks.gnani.dev',
-    githubUrl: 'https://github.com/gnani/task-manager',
+      'Intelligent enterprise-grade reconciliation platform automating complex multi-way financial reconciliations using AI and NLP. Integrated AWS Textract and Google Gemini AI for document processing, and AWS Bedrock (Claude 3.5 Sonnet) for multi-way matching and discrepancy detection.',
+    image: '/images/project-clofast.jpg',
+    techStack: ['React', 'Node.js', 'AWS Textract', 'AWS Bedrock', 'Gemini AI', 'MongoDB'],
+    liveUrl: '',
+    githubUrl: '',
     featured: true,
   },
   {
-    id: 'ai-content-tool',
-    title: 'AI Content Generator',
-    description: 'SaaS tool that generates marketing copy, blog posts, and social captions using Claude API.',
+    id: 'hack2build',
+    title: 'Hack2Build – Hackathon Platform',
+    description: 'Full-featured hackathon management platform with AI-driven NLP, CI/CD pipelines, and role-based access for 4 user types.',
     longDescription:
-      'A SaaS content generation platform powered by Claude AI. Users can generate marketing copy, blog posts, and social media captions. Built with Next.js App Router, Stripe subscriptions, and rate limiting.',
-    image: '/images/project-ai.jpg',
-    techStack: ['Next.js', 'Claude API', 'TypeScript', 'Stripe', 'PostgreSQL'],
-    liveUrl: 'https://ai.gnani.dev',
-    githubUrl: 'https://github.com/gnani/ai-content',
+      'Hackathon management platform with end-to-end architecture for Participants, Organizers, Reviewers, and Admins. Features AI-driven NLP for hackathon creation, resume data extraction, and personalized recommendations. Deployed on Azure App Service with Docker and GitHub Actions CI/CD.',
+    image: '/images/project-hack2build.jpg',
+    techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'Docker', 'GitHub Actions'],
+    liveUrl: '',
+    githubUrl: '',
     featured: true,
   },
   {
-    id: 'analytics-dashboard',
-    title: 'Analytics Dashboard',
-    description: 'Real-time analytics dashboard with interactive charts, custom date ranges, and PDF export.',
+    id: 'obu-calendar',
+    title: 'US OBU Calendar – AstraZeneca',
+    description: 'Enterprise SharePoint planning calendar with 6 calendar views, Microsoft SSO, and automated email notifications.',
     longDescription:
-      'A comprehensive analytics dashboard built for SaaS products. Features real-time data visualization, custom date range filtering, CSV/PDF export, and role-based access control.',
-    image: '/images/project-analytics.jpg',
-    techStack: ['React', 'Node.js', 'MongoDB', 'Chart.js', 'Redis'],
-    githubUrl: 'https://github.com/gnani/analytics',
+      'Enterprise business planning calendar for AstraZeneca supporting multiple business units. Features monthly, quarterly, yearly, list, single-day, and multi-day views with event overlays and timezone handling. Integrated Microsoft SSO via Active Directory and export options (PDF, Excel, CSV).',
+    image: '/images/project-calendar.jpg',
+    techStack: ['React', 'SPFx', 'SharePoint Lists', 'Azure AD'],
+    liveUrl: '',
+    githubUrl: '',
     featured: false,
   },
   {
-    id: 'chat-app',
-    title: 'Real-Time Chat App',
-    description: 'Slack-like messaging app with channels, DMs, file sharing, and push notifications.',
+    id: 'nibandhana',
+    title: 'Nibandhana – AI Legal Translation',
+    description: 'AI platform translating Telangana Secretariat legal documents from English to Telugu, deployed on AWS.',
     longDescription:
-      'A real-time messaging application with Socket.io. Features group channels, direct messages, file sharing, read receipts, push notifications, and message threading.',
-    image: '/images/project-chat.jpg',
-    techStack: ['React', 'Node.js', 'Socket.io', 'MongoDB', 'AWS S3'],
-    githubUrl: 'https://github.com/gnani/chat-app',
+      'AI platform to translate Telangana Secretariat legal documents from English to Telugu with high legal accuracy. Integrated Google Gemini AI for contextual translation of confidential government documents. Deployed on AWS (EC2, S3, Route 53) with Docker and GitHub Actions CI/CD.',
+    image: '/images/project-nibandhana.jpg',
+    techStack: ['React', 'Node.js', 'MongoDB', 'AWS EC2', 'Gemini AI', 'Docker'],
+    liveUrl: '',
+    githubUrl: '',
     featured: false,
   },
   {
-    id: 'blog-cms',
-    title: 'Headless Blog CMS',
-    description: 'Custom CMS with MDX support, draft/publish workflow, and multi-author capabilities.',
+    id: 'expiry-tracker',
+    title: 'Expiry Tracker',
+    description: 'Mobile app for automated product expiry tracking with barcode scanning, AI text extraction, and cross-platform price comparison.',
     longDescription:
-      'A headless CMS built for developer blogs. Features MDX content, draft/publish workflow, multi-author support, SEO optimization, and a beautiful admin interface.',
-    image: '/images/project-blog.jpg',
-    techStack: ['Next.js', 'TypeScript', 'MongoDB', 'MDX', 'Tailwind'],
-    liveUrl: 'https://blog.gnani.dev',
-    githubUrl: 'https://github.com/gnani/blog-cms',
+      'Mobile app for automated product expiry tracking using barcode scanning and Azure AI-powered text extraction. Features price comparison across Amazon, Flipkart, MedPlus, and Apollo Pharmacy. Includes multilingual support, text-to-audio, fake product detection, and Google login.',
+    image: '/images/project-expiry.jpg',
+    techStack: ['React Native', 'Express.js', 'MongoDB', 'Azure AI'],
+    liveUrl: '',
+    githubUrl: '',
+    featured: false,
+  },
+  {
+    id: 'studyeasy',
+    title: 'StudyEasy',
+    description: 'Centralized study resource platform with Gemini-powered chatbot, role-based access, and JWT + OTP authentication.',
+    longDescription:
+      'Centralized study resource platform minimizing distractions and enhancing learning efficiency. Deployed on Vercel with role-based access for Admins and Learners, course management, and interactive dashboards. Integrated Gemini API for chatbot assistance and JWT + OTP-based secure authentication.',
+    image: '/images/project-studyeasy.jpg',
+    techStack: ['React', 'Node.js', 'MongoDB', 'Express.js', 'Gemini API'],
+    liveUrl: '',
+    githubUrl: 'https://github.com/Gnanigit',
+    featured: false,
+  },
+  {
+    id: 'anusan',
+    title: 'Anusan – AI Judicial Translation',
+    description: 'AI platform translating Telangana High Court judgments to Telugu and generating headnotes with full confidentiality.',
+    longDescription:
+      'AI platform to translate Telangana High Court judgments from English to Telugu and generate accurate headnotes, ensuring confidentiality and legal compliance. Integrated Google Gemini AI for sensitive judicial document translation. Deployed on AWS with Docker and GitHub Actions CI/CD.',
+    image: '/images/project-anusan.jpg',
+    techStack: ['React', 'Node.js', 'MongoDB', 'AWS', 'Gemini AI', 'Docker'],
+    liveUrl: '',
+    githubUrl: '',
     featured: false,
   },
 ]
 
 export const EXPERIENCE: Experience[] = [
   {
-    id: 'freelance',
-    company: 'Self-Employed',
-    role: 'Full Stack Developer (Freelance)',
-    duration: '2023 – Present',
-    startDate: '2023-01',
+    id: 'quadric-fulltime',
+    company: 'Quadric Information Technology',
+    role: 'Software Developer',
+    duration: 'March 2025 – Present',
+    startDate: '2025-03',
     endDate: 'present',
-    location: 'Remote',
+    location: 'Hyderabad, Telangana',
     current: true,
     description: [
-      'Delivered 15+ web applications for clients across e-commerce, SaaS, and fintech verticals.',
-      'Built full-stack solutions with Next.js, Node.js, MongoDB — cutting client time-to-market by 40%.',
-      'Integrated third-party services: Stripe, Twilio, AWS S3, Cloudinary, and various REST APIs.',
-      'Maintained 99.9% uptime across all production deployments on Vercel and AWS.',
+      'Developed and maintained US OBU Calendar for AstraZeneca — a custom SharePoint application with React, SPFx, and SharePoint Lists, enhancing team collaboration and scheduling efficiency.',
+      'Contributing as a Software Developer to an AI-driven project for a Telangana government department and designing a prototype for an AI full-stack solution in the judicial sector.',
+      'Building Hack2Build, Quadric IT\'s internal Hackathon management platform, to streamline event coordination and innovation tracking.',
+      'Designed and delivered an enterprise-scale Conference Management Application for AstraZeneca with full-stack development, Microsoft Azure AD SSO, and complete AWS infrastructure (Lambda, API Gateway, Aurora PostgreSQL).',
     ],
-    techStack: ['Next.js', 'Node.js', 'MongoDB', 'TypeScript', 'AWS', 'Vercel'],
+    techStack: ['React', 'SPFx', 'AWS Lambda', 'Aurora PostgreSQL', 'Azure AD', 'Node.js'],
   },
   {
-    id: 'startup',
-    company: 'TechWave Solutions',
-    role: 'Full Stack Developer',
-    duration: '2022 – 2023',
-    startDate: '2022-03',
-    endDate: '2023-01',
-    location: 'Hyderabad, India',
+    id: 'quadric-intern',
+    company: 'Quadric Information Technology',
+    role: 'Full Stack Developer – Intern',
+    duration: 'June 2024 – September 2024',
+    startDate: '2024-06',
+    endDate: '2024-09',
+    location: 'Hyderabad, Telangana',
     current: false,
     description: [
-      'Led development of the company\'s flagship SaaS product serving 5,000+ active users.',
-      'Reduced API response times by 60% through MongoDB query optimization and Redis caching.',
-      'Collaborated with design team to implement a complete UI overhaul using React and Tailwind CSS.',
-      'Mentored 2 junior developers and established code review practices that improved code quality.',
+      'Worked on CloFast, an AI-powered platform leveraging NLP and Generative AI to perform data reconciliation and automate enterprise workflows across finance domains.',
+      'Gained in-depth knowledge of integrating Artificial Intelligence with accounting principles, leveraging SAP and financial domain insights.',
     ],
-    techStack: ['React', 'Node.js', 'MongoDB', 'Redis', 'Express', 'Tailwind'],
-  },
-  {
-    id: 'intern',
-    company: 'DevCraft Agency',
-    role: 'Frontend Developer (Intern)',
-    duration: '2021 – 2022',
-    startDate: '2021-06',
-    endDate: '2022-03',
-    location: 'Bangalore, India',
-    current: false,
-    description: [
-      'Built responsive landing pages and marketing sites for 8 client projects using React.',
-      'Implemented pixel-perfect designs from Figma with cross-browser compatibility.',
-      'Reduced bundle sizes by 35% through code splitting and lazy loading strategies.',
-      'Contributed to internal component library used across 4 active projects.',
-    ],
-    techStack: ['React', 'JavaScript', 'CSS3', 'Tailwind', 'Figma', 'Git'],
+    techStack: ['React', 'Node.js', 'MongoDB', 'AWS Bedrock', 'Gemini AI', 'NLP'],
   },
 ]
 
@@ -199,37 +211,56 @@ export const NAV_LINKS = [
 export const TECH_FILTER_TAGS = [
   'All',
   'React',
-  'Next.js',
   'Node.js',
-  'MongoDB',
-  'TypeScript',
   'AWS',
+  'MongoDB',
+  'Gemini AI',
+  'Docker',
+  'Azure AD',
 ]
 
-export const CHATBOT_SYSTEM_PROMPT = `You are a helpful portfolio assistant for Gnani, a Full Stack MERN developer.
+export const CHATBOT_SYSTEM_PROMPT = `You are a helpful portfolio assistant for Gnaneswar Yalla (Gnani), a Full Stack Developer.
 Answer visitor questions about his skills, experience, projects, and availability.
 Be concise, friendly, and professional. If you don't know something, say so honestly.
 
-About Gnani:
-- Full name: Gnani
-- Role: Full Stack Developer (MERN Stack)
-- Location: India (available for remote work worldwide)
-- Experience: 3+ years of full stack development
-- Available for: freelance projects and full-time remote roles
+About Gnaneswar Yalla:
+- Full name: Gnaneswar Yalla
+- Role: Software Developer at Quadric Information Technology
+- Location: Hyderabad, Telangana, India
+- Email: gnani4412@gmail.com
+- Phone: +91 9392864866
+- GitHub: github.com/Gnanigit
+- LinkedIn: linkedin.com/in/gnaneswar-yalla-730ba4250
+- Available for: Full-time roles and freelance projects
 
-Skills: React, Next.js, TypeScript, JavaScript, Tailwind CSS, Node.js, Express.js, MongoDB, PostgreSQL, Redis, GraphQL, REST APIs, JWT Auth, Docker, AWS, Git, Vercel
+Education:
+- B.Tech in Computer Science & Engineering — Vishnu Institute of Technology (2021–2025), GPA: 9.02/10
+- Honors in CSE — Vishnu Institute of Technology, GPA: 8.4/10
 
-Recent Projects:
-1. E-Commerce Platform — Next.js + Node.js + MongoDB + Stripe
-2. Team Task Manager — React + Socket.io + Express + MongoDB
-3. AI Content Generator — Next.js + Claude API + Stripe + PostgreSQL
-4. Analytics Dashboard — React + Node.js + Chart.js + Redis
+Skills:
+- Frontend: React.js, Next.js, React Native, TypeScript, JavaScript, Tailwind CSS, Framer Motion, SPFx
+- Backend: Node.js, Express.js, AWS Lambda, REST APIs, Serverless Architecture
+- Databases: MongoDB, PostgreSQL, AWS Aurora, MySQL, Firebase
+- Cloud & DevOps: AWS (EC2, S3, CloudFront, Lambda, Bedrock, Textract, API Gateway, Secrets Manager, KMS), Azure AD, Azure App Service, Docker, GitHub Actions, CI/CD
+- AI: Google Gemini AI, AWS Bedrock (Claude 3.5 Sonnet), AWS Textract, NLP, Generative AI
+- Languages: JavaScript, Java, Python
 
 Experience:
-- Freelance Full Stack Developer (2023–Present): 15+ web apps delivered
-- TechWave Solutions (2022–2023): Led SaaS product development for 5000+ users
-- DevCraft Agency (2021–2022): Frontend development intern
+- Software Developer at Quadric IT (March 2025–Present): Building enterprise apps for AstraZeneca and Telangana government
+- Full Stack Developer Intern at Quadric IT (June–September 2024): Built AI-powered financial reconciliation platform CloFast
 
-Contact: gnani@example.com
-GitHub: github.com/gnani
-LinkedIn: linkedin.com/in/gnani`
+Key Projects:
+1. Conference App (AstraZeneca) — React, AWS Lambda, Aurora PostgreSQL, Azure AD
+2. Clofast — AI reconciliation platform with AWS Bedrock + Gemini AI, reduced manual effort by 90%
+3. Hack2Build — Hackathon management platform with NLP and CI/CD
+4. US OBU Calendar (AstraZeneca) — SPFx + React + SharePoint
+5. Nibandhana & Anusan — AI legal/judicial document translation for Telangana government
+6. Expiry Tracker — React Native mobile app with Azure AI and price comparison
+7. StudyEasy — Study platform with Gemini chatbot
+
+Achievements:
+- GFG Institute Rank: Top 1% (12 out of 3000)
+- Solved 600+ problems on LeetCode & GeeksForGeeks
+- 2nd Prize in IoT Protothon at VIT College Fest
+- Best Full Stack Project Award — Codinza/StudyOwl
+- Participated in Smart India Hackathon 2022 & 2023`

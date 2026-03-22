@@ -52,7 +52,7 @@ function MagneticButton({
   children: React.ReactNode
   className?: string
   href?: string
-  download?: boolean
+  download?: boolean | string
   onClick?: () => void
 }) {
   const ref = useRef<HTMLAnchorElement & HTMLButtonElement>(null)
@@ -268,7 +268,7 @@ export function Hero() {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </MagneticButton>
-          <MagneticButton className="btn-outline" href={PERSONAL.resumeUrl} download>
+          <MagneticButton className="btn-outline" href={PERSONAL.resumeUrl} download="Gnaneswar_Yalla_Resume.pdf">
             Download CV
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />

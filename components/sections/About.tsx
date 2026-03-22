@@ -54,7 +54,7 @@ const BENTO_ITEMS = [
         </div>
         <a
           href={PERSONAL.resumeUrl}
-          download
+          download="Gnaneswar_Yalla_Resume.pdf"
           className="magnetic-btn btn-outline"
           style={{ width: 'fit-content', fontSize: '0.85rem', padding: '0.6rem 1.5rem' }}
         >

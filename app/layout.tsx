@@ -3,9 +3,9 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Gnani — Full Stack Developer',
+  title: 'Gnaneswar Yalla — Full Stack Developer',
   description:
-    'Full Stack MERN developer crafting performant, scalable web applications. React, Next.js, Node.js, MongoDB, TypeScript.',
+    'Full Stack Developer specializing in MERN stack, AWS serverless architecture, and AI-powered applications. React, Next.js, Node.js, MongoDB, TypeScript.',
   keywords: [
     'Full Stack Developer',
     'MERN Stack',
@@ -14,32 +14,34 @@ export const metadata: Metadata = {
     'Node.js',
     'MongoDB',
     'TypeScript',
-    'Tailwind CSS',
+    'AWS',
+    'Gnaneswar Yalla',
+    'Gnani',
   ],
-  authors: [{ name: 'Gnani' }],
-  creator: 'Gnani',
+  authors: [{ name: 'Gnaneswar Yalla' }],
+  creator: 'Gnaneswar Yalla',
   metadataBase: new URL('https://gnani.dev'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://gnani.dev',
-    siteName: 'Gnani — Portfolio',
-    title: 'Gnani — Full Stack Developer',
+    siteName: 'Gnaneswar Yalla — Portfolio',
+    title: 'Gnaneswar Yalla — Full Stack Developer',
     description:
-      'Full Stack MERN developer crafting performant, scalable web applications.',
+      'Full Stack Developer building scalable, AI-powered applications with MERN stack and AWS.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Gnani — Full Stack Developer',
+        alt: 'Gnaneswar Yalla — Full Stack Developer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gnani — Full Stack Developer',
-    description: 'Full Stack MERN developer. React, Next.js, Node.js, MongoDB.',
+    title: 'Gnaneswar Yalla — Full Stack Developer',
+    description: 'Full Stack Developer. React, Next.js, Node.js, AWS, AI integrations.',
     images: ['/og-image.png'],
   },
   robots: {
