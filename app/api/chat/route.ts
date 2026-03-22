@@ -1,8 +1,8 @@
-import Anthropic from '@anthropic-ai/sdk'
+import { GoogleGenerativeAI } from '@google/generative-ai'
 import { NextRequest, NextResponse } from 'next/server'
 import { CHATBOT_SYSTEM_PROMPT } from '@/lib/constants'
 
-const client = new Anthropic()
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,21 +12,28 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid messages format' }, { status: 400 })
     }
 
-    const response = await client.messages.create({
-      model: 'claude-opus-4-5',
-      max_tokens: 500,
-      system: CHATBOT_SYSTEM_PROMPT,
-      messages,
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      systemInstruction: CHATBOT_SYSTEM_PROMPT,
     })
 
-    const text =
-      response.content[0]?.type === 'text' ? response.content[0].text : ''
+    // Convert to Gemini format: "assistant" → "model", all prior messages as history
+    const history = messages.slice(0, -1).map((msg: { role: string; content: string }) => ({
+      role: msg.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: msg.content }],
+    }))
+
+    const lastMessage = messages[messages.length - 1].content
+
+    const chat = model.startChat({ history })
+    const result = await chat.sendMessage(lastMessage)
+    const text = result.response.text()
 
     return NextResponse.json({ message: text })
   } catch (error) {
-    console.error('Chat API error:', error)
+    console.error('Gemini API error:', error)
     return NextResponse.json(
-      { error: 'Failed to get response. Please try again.' },
+      { message: 'Sorry, I am unable to respond right now. Please try again later.' },
       { status: 500 }
     )
   }
