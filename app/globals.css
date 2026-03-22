@@ -415,7 +415,7 @@ code, pre, .mono {
 /* ── TIMELINE ── */
 .timeline-line {
   position: absolute;
-  left: clamp(14px, 4vw, 24px);
+  left: 20px;
   top: 0;
   bottom: 0;
   width: 2px;

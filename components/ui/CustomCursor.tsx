@@ -12,12 +12,20 @@ export function CustomCursor() {
   const rafId = useRef<number>(0)
 
   useEffect(() => {
-    setIsTouch(window.matchMedia('(hover: none)').matches)
+    const noHover = window.matchMedia('(hover: none)').matches
+    const coarse  = window.matchMedia('(pointer: coarse)').matches
+    setIsTouch(noHover || coarse)
   }, [])
 
   useEffect(() => {
-    // Only show custom cursor on non-touch devices
-    if (window.matchMedia('(hover: none)').matches) return
+    // Only show custom cursor on true pointer devices
+    const noHover = window.matchMedia('(hover: none)').matches
+    const coarse  = window.matchMedia('(pointer: coarse)').matches
+    if (noHover || coarse) return
+
+    // If user touches at any point, permanently hide the cursor
+    function onTouch() { setIsTouch(true) }
+    window.addEventListener('touchstart', onTouch, { passive: true, once: true })
 
     function onMouseMove(e: MouseEvent) {
       pos.current = { x: e.clientX, y: e.clientY }
@@ -74,6 +82,7 @@ export function CustomCursor() {
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('touchstart', onTouch)
       cancelAnimationFrame(rafId.current)
       observer.disconnect()
     }
