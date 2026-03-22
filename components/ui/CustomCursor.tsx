@@ -6,9 +6,14 @@ export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
   const [hovered, setHovered] = useState(false)
+  const [isTouch, setIsTouch] = useState(true)
   const pos = useRef({ x: -100, y: -100 })
   const ringPos = useRef({ x: -100, y: -100 })
   const rafId = useRef<number>(0)
+
+  useEffect(() => {
+    setIsTouch(window.matchMedia('(hover: none)').matches)
+  }, [])
 
   useEffect(() => {
     // Only show custom cursor on non-touch devices
@@ -73,6 +78,8 @@ export function CustomCursor() {
       observer.disconnect()
     }
   }, [])
+
+  if (isTouch) return null
 
   return (
     <>

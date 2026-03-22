@@ -2,7 +2,6 @@
 
 import { useRef, useEffect, useState, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Float } from '@react-three/drei'
 import * as THREE from 'three'
 
 /* ── reads --primary CSS variable and updates on theme change ── */
@@ -222,30 +221,98 @@ function MouseTracker({ setMouse }: { setMouse: (v: { x: number; y: number }) =>
   return null
 }
 
-/* ── mobile fallback: simple wireframe icosahedron ── */
-function MobileFallback({ color }: { color: string }) {
-  const threeColor = useMemo(() => new THREE.Color(color), [color])
+/* ── CSS-only fallback for mobile & tablet (no WebGL) ── */
+function CSSFallback({ color }: { color: string }) {
   return (
-    <Float speed={1} floatIntensity={0.35}>
-      <group>
-        <mesh>
-          <icosahedronGeometry args={[1.8, 1]} />
-          <meshBasicMaterial color={threeColor} wireframe transparent opacity={0.55} />
-        </mesh>
-        <mesh>
-          <sphereGeometry args={[0.28, 16, 16]} />
-          <meshBasicMaterial color={threeColor} transparent opacity={0.75} />
-        </mesh>
-      </group>
-    </Float>
+    <>
+      <style>{`
+        @keyframes css-globe-spin  { to { transform: rotate(360deg); } }
+        @keyframes css-globe-spin2 { to { transform: rotate(-360deg); } }
+        @keyframes css-globe-spin3 { to { transform: rotate(360deg); } }
+        @keyframes css-globe-pulse { 0%,100%{transform:scale(1);opacity:.85} 50%{transform:scale(1.15);opacity:1} }
+        @keyframes css-globe-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+        @keyframes css-dot-blink   { 0%,100%{opacity:.3} 50%{opacity:1} }
+      `}</style>
+      <div style={{
+        width: '100%', height: '100%',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        <div style={{ animation: 'css-globe-float 4s ease-in-out infinite', position: 'relative', width: 260, height: 260 }}>
+
+          {/* Outer ring */}
+          <div style={{
+            position: 'absolute', inset: 0, borderRadius: '50%',
+            border: `1.5px solid ${color}30`,
+            animation: 'css-globe-spin 18s linear infinite',
+          }}>
+            <div style={{ position: 'absolute', top: -4, left: '50%', marginLeft: -4, width: 8, height: 8, borderRadius: '50%', background: color, opacity: 0.9, boxShadow: `0 0 8px 3px ${color}66` }} />
+            <div style={{ position: 'absolute', bottom: -4, left: '50%', marginLeft: -4, width: 6, height: 6, borderRadius: '50%', background: color, opacity: 0.5 }} />
+          </div>
+
+          {/* Mid ring — tilted */}
+          <div style={{
+            position: 'absolute', inset: 20, borderRadius: '50%',
+            border: `1px dashed ${color}28`,
+            transform: 'rotateX(60deg)',
+            animation: 'css-globe-spin2 12s linear infinite',
+          }}>
+            <div style={{ position: 'absolute', top: -4, right: '20%', width: 7, height: 7, borderRadius: '50%', background: color, opacity: 0.7, boxShadow: `0 0 6px 2px ${color}55` }} />
+          </div>
+
+          {/* Inner ring */}
+          <div style={{
+            position: 'absolute', inset: 45, borderRadius: '50%',
+            border: `1px solid ${color}22`,
+            animation: 'css-globe-spin3 8s linear infinite',
+          }}>
+            <div style={{ position: 'absolute', bottom: -3, left: '30%', width: 6, height: 6, borderRadius: '50%', background: color, opacity: 0.6 }} />
+            <div style={{ position: 'absolute', top: -3, right: '25%', width: 5, height: 5, borderRadius: '50%', background: color, opacity: 0.4 }} />
+          </div>
+
+          {/* Scattered dots */}
+          {[
+            { top: '12%',  left: '72%', s: 5, d: '0s',   f: '2.4s' },
+            { top: '75%',  left: '18%', s: 7, d: '0.6s', f: '1.9s' },
+            { top: '20%',  left: '15%', s: 4, d: '1.1s', f: '2.8s' },
+            { top: '65%',  left: '78%', s: 6, d: '0.3s', f: '2.1s' },
+            { top: '45%',  left: '5%',  s: 4, d: '1.5s', f: '3s'   },
+            { top: '48%',  left: '90%', s: 5, d: '0.9s', f: '2.6s' },
+            { top: '85%',  left: '55%', s: 4, d: '1.8s', f: '2.2s' },
+            { top: '8%',   left: '40%', s: 5, d: '0.4s', f: '2.9s' },
+          ].map((dot, i) => (
+            <div key={i} style={{
+              position: 'absolute',
+              top: dot.top, left: dot.left,
+              width: dot.s, height: dot.s,
+              borderRadius: '50%',
+              background: color,
+              boxShadow: `0 0 ${dot.s + 4}px ${dot.s / 2}px ${color}44`,
+              animation: `css-dot-blink ${dot.f} ease-in-out ${dot.d} infinite`,
+            }} />
+          ))}
+
+          {/* Central core */}
+          <div style={{
+            position: 'absolute',
+            top: '50%', left: '50%',
+            width: 32, height: 32,
+            marginTop: -16, marginLeft: -16,
+            borderRadius: '50%',
+            background: `radial-gradient(circle, ${color} 0%, ${color}88 60%, transparent 100%)`,
+            boxShadow: `0 0 24px 8px ${color}44`,
+            animation: 'css-globe-pulse 2.5s ease-in-out infinite',
+          }} />
+        </div>
+      </div>
+    </>
   )
 }
 
 /* ── exported scene ── */
 export function HeroScene() {
-  const [mouse, setMouse]       = useState({ x: 0, y: 0 })
-  const [isMobile, setIsMobile] = useState(false)
-  const primaryColor            = usePrimaryColor()
+  const [mouse, setMouse]             = useState({ x: 0, y: 0 })
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
+  const primaryColor                  = usePrimaryColor()
 
   /* suppress r3f's internal THREE.Clock deprecation warning —
      r3f 9.x still uses Clock internally; fix pending upstream */
@@ -259,33 +326,35 @@ export function HeroScene() {
   }, [])
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768)
+    const check = () => setIsSmallScreen(window.innerWidth < 1024)
     check()
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
   }, [])
+
+  /* Pure CSS fallback for mobile & tablet — no WebGL loaded at all */
+  if (isSmallScreen) {
+    return (
+      <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+        <CSSFallback color={primaryColor} />
+      </div>
+    )
+  }
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <MouseTracker setMouse={setMouse} />
       <Canvas
         camera={{ position: [0, 0.6, 7], fov: 50 }}
-        dpr={isMobile ? [1, 1] : [1, 2]}
-        gl={{ antialias: !isMobile, alpha: true }}
+        dpr={[1, 2]}
+        gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent' }}
       >
         <ambientLight intensity={0.4} />
-
-        {isMobile ? (
-          <MobileFallback color={primaryColor} />
-        ) : (
-          <>
-            <PulsingCore    color={primaryColor} />
-            <NodeNetwork    mouse={mouse} color={primaryColor} />
-            <OrbitRings     color={primaryColor} />
-            <DataParticles  color={primaryColor} />
-          </>
-        )}
+        <PulsingCore   color={primaryColor} />
+        <NodeNetwork   mouse={mouse} color={primaryColor} />
+        <OrbitRings    color={primaryColor} />
+        <DataParticles color={primaryColor} />
       </Canvas>
     </div>
   )

@@ -362,8 +362,8 @@ export function Hero() {
         style={{
           position: 'absolute',
           bottom: '2rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          left: 0,
+          right: 0,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

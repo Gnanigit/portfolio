@@ -534,6 +534,16 @@ code, pre, .mono {
   }
 }
 
+/* ── TOUCH DEVICES: restore default cursors ── */
+@media (hover: none) {
+  *, *::before, *::after {
+    cursor: auto !important;
+  }
+  a, button, [role="button"], label, select {
+    cursor: pointer !important;
+  }
+}
+
 /* ── REDUCE MOTION ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
