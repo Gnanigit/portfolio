@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { ThemeSwitcher } from './ThemeSwitcher'
@@ -11,6 +11,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen]         = useState(false)
   const [activeSection, setActiveSection]   = useState('home')
   const [isMobile, setIsMobile]             = useState(false)
+  const scrollLock = useRef(false)
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -34,6 +35,7 @@ export function Navbar() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
+        if (scrollLock.current) return
         entries.forEach((entry) => {
           if (entry.isIntersecting) setActiveSection(entry.target.id)
         })
@@ -50,9 +52,12 @@ export function Navbar() {
   function handleNavClick(href: string) {
     setActiveSection(href.replace('#', ''))
     setMobileOpen(false)
+    scrollLock.current = true
     setTimeout(() => {
       document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
     }, 50)
+    // Release lock after scroll animation completes (~1s)
+    setTimeout(() => { scrollLock.current = false }, 1200)
   }
 
   return (
