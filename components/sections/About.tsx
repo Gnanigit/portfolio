@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { MapPin, BookOpen, Lightbulb } from 'lucide-react'
 import { PERSONAL, STATS } from '@/lib/constants'
 
 function CountUp({ end, suffix }: { end: number; suffix: string }) {
@@ -72,7 +73,7 @@ const BENTO_ITEMS = [
     rowSpan: 1,
     content: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <div style={{ fontSize: '2rem' }}>📍</div>
+        <MapPin size={28} color="var(--primary)" />
         <div style={{ fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', fontFamily: "'Space Grotesk', sans-serif" }}>Location</div>
         <div style={{ color: 'var(--text-primary)', fontWeight: 600, fontFamily: "'Space Grotesk', sans-serif" }}>{PERSONAL.location}</div>
         <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Open to remote work</div>
@@ -100,7 +101,7 @@ const BENTO_ITEMS = [
     rowSpan: 1,
     content: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <div style={{ fontSize: '1.8rem' }}>📚</div>
+        <BookOpen size={26} color="var(--primary)" />
         <div style={{ fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', fontFamily: "'Space Grotesk', sans-serif" }}>Currently Learning</div>
         <div style={{ color: 'var(--text-accent)', fontWeight: 600, fontSize: '0.85rem', fontFamily: "'Space Grotesk', sans-serif" }}>{PERSONAL.currentlyLearning}</div>
       </div>
@@ -112,7 +113,7 @@ const BENTO_ITEMS = [
     rowSpan: 1,
     content: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <div style={{ fontSize: '1.8rem' }}>💡</div>
+        <Lightbulb size={26} color="var(--primary)" />
         <div style={{ fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', fontFamily: "'Space Grotesk', sans-serif" }}>Fun Fact</div>
         <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5, fontStyle: 'italic' }}>&ldquo;{PERSONAL.funFact}&rdquo;</div>
       </div>

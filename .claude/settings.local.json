@@ -3,7 +3,9 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(npx tsc:*)",
-      "Bash(echo \"EXIT: $?\")"
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(node -e \"const l = require\\(''''lucide-react''''\\); console.log\\(Object.keys\\(l\\).filter\\(k => /git|link|twit|x$/i.test\\(k\\)\\).sort\\(\\)\\)\")",
+      "Bash(node -e \"const l = require\\(''lucide-react''\\); console.log\\(Object.keys\\(l\\).filter\\(k => /^\\(Github|Linkedin|Twitter|X$|XIcon\\)/i.test\\(k\\)\\).sort\\(\\)\\)\")"
     ]
   }
 }

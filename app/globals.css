@@ -171,7 +171,13 @@
 
 html {
   scroll-behavior: smooth;
-  cursor: none;
+}
+
+/* Force hide native cursor on true pointer devices so custom cursor is always visible */
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
 }
 
 body {
@@ -193,7 +199,7 @@ body {
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 99999;
   transform: translate(-50%, -50%);
   transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
 }
@@ -207,7 +213,7 @@ body {
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 9998;
+  z-index: 99998;
   transform: translate(-50%, -50%);
   transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
   opacity: 0.6;
@@ -524,12 +530,13 @@ code, pre, .mono {
 }
 @media (max-width: 640px) {
   .chat-panel {
-    inset: 0;
-    width: 100%;
-    max-height: 100%;
-    border-radius: 0;
+    top: 64px;
     bottom: 0;
+    left: 0;
     right: 0;
+    width: 100%;
+    max-height: calc(100% - 64px);
+    border-radius: 0;
     transform: none;
   }
 }

@@ -15,7 +15,7 @@ export interface Project {
 export interface Skill {
   name: string
   icon: string
-  category: 'Frontend' | 'Backend' | 'Database' | 'Tools & DevOps'
+  category: 'Frontend' | 'Backend' | 'Database' | 'Tools & DevOps' | 'Cloud & DevOps' | 'AI & ML' | 'Tools'
 }
 
 export interface Experience {

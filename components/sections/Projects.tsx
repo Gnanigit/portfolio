@@ -2,7 +2,6 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import Image from 'next/image'
 import { PROJECTS, TECH_FILTER_TAGS } from '@/lib/constants'
 import type { Project } from '@/lib/types'
 
@@ -99,18 +98,20 @@ function TiltCard({ project, index }: { project: Project; index: number }) {
               inset: 0,
               background: 'rgba(0,0,0,0.75)',
               display: 'flex',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               justifyContent: 'center',
-              padding: '1.5rem',
+              padding: project.featured ? '2.5rem 1.25rem 1rem' : '1.25rem',
               backdropFilter: 'blur(4px)',
+              overflowY: 'auto',
             }}
           >
             <p
               style={{
-                color: 'var(--text-primary)',
+                color: '#fff',
                 fontSize: '0.85rem',
                 lineHeight: 1.6,
                 textAlign: 'center',
+                width: '100%',
               }}
             >
               {project.longDescription}
@@ -133,6 +134,7 @@ function TiltCard({ project, index }: { project: Project; index: number }) {
                 color: 'var(--bg-base)',
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
+                zIndex: 2,
               }}
             >
               Featured

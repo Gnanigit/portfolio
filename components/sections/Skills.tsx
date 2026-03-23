@@ -2,10 +2,18 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { Zap, Globe, Cloud, Workflow } from 'lucide-react'
 import { SKILLS } from '@/lib/constants'
 import type { Skill } from '@/lib/types'
 
-const CATEGORIES = ['Frontend', 'Backend', 'Database', 'Tools & DevOps'] as const
+const LUCIDE_FALLBACK: Record<string, React.ReactNode> = {
+  'Framer Motion': <Zap   size={22} color="var(--primary)" />,
+  'REST APIs':     <Globe  size={22} color="var(--primary)" />,
+  'Serverless':    <Cloud    size={22} color="var(--primary)" />,
+  'CI/CD':         <Workflow size={22} color="var(--primary)" />,
+}
+
+const CATEGORIES = ['Frontend', 'Backend', 'Database', 'Cloud & DevOps', 'AI & ML', 'Tools'] as const
 
 function SkillPill({
   skill,
@@ -53,7 +61,10 @@ function SkillPill({
         willChange: 'transform',
       }}
     >
-      <span style={{ fontSize: '1rem' }}>{skill.icon}</span>
+      {skill.icon
+        ? <img src={skill.icon} width={24} height={24} alt="" aria-hidden="true" style={{ flexShrink: 0, display: 'block' }} />
+        : LUCIDE_FALLBACK[skill.name] ?? null
+      }
       <span
         style={{
           fontFamily: "'Space Grotesk', sans-serif",

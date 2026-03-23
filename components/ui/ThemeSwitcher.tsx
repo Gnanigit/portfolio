@@ -2,44 +2,72 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { Sun, Moon } from 'lucide-react'
 import type { Theme } from '@/lib/types'
 
-const THEMES: { value: Theme; label: string; color: string; ring: string }[] = [
-  { value: 'dark-green',   label: 'Dark Green',   color: '#a0e548', ring: '#7ac42e' },
-  { value: 'light-green',  label: 'Light Green',  color: '#6abf1e', ring: '#4a9a0e' },
-  { value: 'dark-purple',  label: 'Dark Purple',  color: '#7c5cbf', ring: '#5a3a9a' },
-  { value: 'light-purple', label: 'Light Purple', color: '#5e4388', ring: '#3e2660' },
+type Color = 'green' | 'purple'
+type Mode  = 'dark'  | 'light'
+
+const COLORS: { value: Color; dot: string; ring: string }[] = [
+  { value: 'green',  dot: '#a0e548', ring: '#7ac42e' },
+  { value: 'purple', dot: '#7c5cbf', ring: '#5a3a9a' },
 ]
 
 const STORAGE_KEY = 'portfolio-theme'
 
+function toTheme(color: Color, mode: Mode): Theme {
+  return `${mode}-${color}` as Theme
+}
+
+function parseTheme(theme: Theme): { color: Color; mode: Mode } {
+  const [mode, color] = theme.split('-') as [Mode, Color]
+  return { color, mode }
+}
+
 export function ThemeSwitcher() {
-  const [current, setCurrent] = useState<Theme>('dark-green')
+  const [color, setColor] = useState<Color>('green')
+  const [mode,  setMode]  = useState<Mode>('dark')
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY) as Theme | null
-    if (saved && THEMES.find((t) => t.value === saved)) {
-      setCurrent(saved)
+    if (saved) {
+      const parsed = parseTheme(saved)
+      setColor(parsed.color)
+      setMode(parsed.mode)
       document.documentElement.setAttribute('data-theme', saved)
     }
   }, [])
 
-  function applyTheme(theme: Theme) {
-    setCurrent(theme)
+  function applyColor(c: Color) {
+    const theme = toTheme(c, mode)
+    setColor(c)
+    localStorage.setItem(STORAGE_KEY, theme)
+    document.documentElement.setAttribute('data-theme', theme)
+  }
+
+  function toggleMode() {
+    const next: Mode = mode === 'dark' ? 'light' : 'dark'
+    const theme = toTheme(color, next)
+    setMode(next)
     localStorage.setItem(STORAGE_KEY, theme)
     document.documentElement.setAttribute('data-theme', theme)
   }
 
   return (
-    <div className="flex items-center gap-2" role="group" aria-label="Select color theme">
-      {THEMES.map((theme) => (
+    <div
+      role="group"
+      aria-label="Theme controls"
+      style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+    >
+      {/* Color dots */}
+      {COLORS.map((c) => (
         <motion.button
-          key={theme.value}
-          onClick={() => applyTheme(theme.value)}
+          key={c.value}
+          onClick={() => applyColor(c.value)}
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9 }}
-          aria-label={`Switch to ${theme.label} theme`}
-          title={theme.label}
+          aria-label={`${c.value} color`}
+          title={c.value.charAt(0).toUpperCase() + c.value.slice(1)}
           style={{
             width: 44,
             height: 44,
@@ -59,14 +87,49 @@ export function ThemeSwitcher() {
             width: 18,
             height: 18,
             borderRadius: '50%',
-            background: theme.color,
-            border: current === theme.value ? `2px solid ${theme.ring}` : '2px solid transparent',
-            outline: current === theme.value ? `2px solid ${theme.color}` : 'none',
+            background: c.dot,
+            border: color === c.value ? `2px solid ${c.ring}` : '2px solid transparent',
+            outline: color === c.value ? `2px solid ${c.dot}` : 'none',
             outlineOffset: '2px',
             transition: 'outline 0.2s ease, border 0.2s ease',
           }} />
         </motion.button>
       ))}
+
+      {/* Dark / Light toggle */}
+      <motion.button
+        onClick={toggleMode}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        title={mode === 'dark' ? 'Light mode' : 'Dark mode'}
+        style={{
+          width: 44,
+          height: 44,
+          borderRadius: '50%',
+          background: 'var(--bg-overlay)',
+          border: '1px solid var(--border-default)',
+          cursor: 'none',
+          padding: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+          color: 'var(--text-secondary)',
+          transition: 'background 0.2s ease, color 0.2s ease',
+        }}
+      >
+        <motion.span
+          key={mode}
+          initial={{ rotate: -30, opacity: 0 }}
+          animate={{ rotate: 0,   opacity: 1 }}
+          exit={{ rotate: 30, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          style={{ display: 'flex' }}
+        >
+          {mode === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+        </motion.span>
+      </motion.button>
     </div>
   )
 }
