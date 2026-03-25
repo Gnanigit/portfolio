@@ -3,11 +3,11 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Gnaneswar Yalla — Full Stack Developer',
+  title: 'Gnaneswar Yalla — Software Engineer',
   description:
-    'Full Stack Developer specializing in MERN stack, AWS serverless architecture, and AI-powered applications. React, Next.js, Node.js, MongoDB, TypeScript.',
+    'Software Engineer specializing in MERN stack, AWS serverless architecture, and AI-powered applications. React, Next.js, Node.js, MongoDB, TypeScript.',
   keywords: [
-    'Full Stack Developer',
+    'Software Engineer',
     'MERN Stack',
     'React',
     'Next.js',
@@ -26,22 +26,22 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://gnani.dev',
     siteName: 'Gnaneswar Yalla — Portfolio',
-    title: 'Gnaneswar Yalla — Full Stack Developer',
+    title: 'Gnaneswar Yalla — Software Engineer',
     description:
-      'Full Stack Developer building scalable, AI-powered applications with MERN stack and AWS.',
+      'Software Engineer building scalable, AI-powered applications with MERN stack and AWS.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Gnaneswar Yalla — Full Stack Developer',
+        alt: 'Gnaneswar Yalla — Software Engineer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gnaneswar Yalla — Full Stack Developer',
-    description: 'Full Stack Developer. React, Next.js, Node.js, AWS, AI integrations.',
+    title: 'Gnaneswar Yalla — Software Engineer',
+    description: 'Software Engineer. React, Next.js, Node.js, AWS, AI integrations.',
     images: ['/og-image.png'],
   },
   robots: {

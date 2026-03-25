@@ -26,7 +26,7 @@ export const PERSONAL = {
   ],
   availableForWork: true,
   funFact: "I debug with console.log and I'm not ashamed.",
-  currentlyLearning: "AWS Serverless Architecture + Generative AI integrations",
+  currentlyLearning: "Deepening AI expertise & Cloud / DevOps mastery",
 };
 
 export const STATS: Stat[] = [
