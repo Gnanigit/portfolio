@@ -75,7 +75,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         {children}
         {ga4Id && <GoogleAnalytics gaId={ga4Id} />}
       </body>
