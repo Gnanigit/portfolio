@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Copy, Check } from 'lucide-react'
 import type { ChatMessage as ChatMessageType } from '@/lib/types'
 
 function formatTime(date: Date) {
@@ -6,9 +9,19 @@ function formatTime(date: Date) {
 
 export function ChatMessage({ message }: { message: ChatMessageType }) {
   const isUser = message.role === 'user'
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(message.content)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
       style={{
         display: 'flex',
         justifyContent: isUser ? 'flex-end' : 'flex-start',
@@ -56,16 +69,42 @@ export function ChatMessage({ message }: { message: ChatMessageType }) {
         >
           {message.content}
         </div>
-        <span
-          style={{
-            fontSize: '0.65rem',
-            color: 'var(--text-muted)',
-            fontFamily: "'Space Grotesk', sans-serif",
-          }}
-        >
-          {formatTime(message.timestamp)}
-        </span>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
+          <span
+            style={{
+              fontSize: '0.65rem',
+              color: 'var(--text-muted)',
+              fontFamily: "'Space Grotesk', sans-serif",
+            }}
+          >
+            {formatTime(message.timestamp)}
+          </span>
+          {!isUser && (
+            <button
+              onClick={handleCopy}
+              aria-label={copied ? 'Copied' : 'Copy message'}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--text-muted)',
+                cursor: 'pointer',
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 'var(--border-radius-sm)',
+                transition: 'color 0.2s ease',
+                minWidth: '28px',
+                minHeight: '28px',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--primary)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
+            >
+              {copied ? <Check size={14} /> : <Copy size={14} />}
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

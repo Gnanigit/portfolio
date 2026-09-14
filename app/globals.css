@@ -173,11 +173,10 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Force hide native cursor on true pointer devices so custom cursor is always visible */
-@media (hover: hover) and (pointer: fine) {
-  *, *::before, *::after {
-    cursor: none !important;
-  }
+/* ── POINTER CURSORS ON INTERACTIVE ELEMENTS ── */
+a, button, [role="button"], input[type="button"], input[type="submit"], input[type="reset"],
+select, textarea, label, [tabindex]:not([tabindex="-1"]), .card {
+  cursor: pointer;
 }
 
 body {
@@ -187,48 +186,6 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* ── CUSTOM CURSOR ── */
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--primary);
-  border-radius: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
-}
-
-.cursor-ring {
-  width: 36px;
-  height: 36px;
-  border: 2px solid var(--primary);
-  border-radius: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
-  opacity: 0.6;
-}
-
-.cursor-dot.hover {
-  width: 12px;
-  height: 12px;
-}
-
-.cursor-ring.hover {
-  width: 56px;
-  height: 56px;
-  opacity: 0.4;
-  background-color: var(--primary-subtle);
 }
 
 /* ── NOISE TEXTURE ── */
@@ -315,7 +272,7 @@ code, pre, .mono {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
   font-size: 0.95rem;
-  cursor: none;
+  cursor: pointer;
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
@@ -480,7 +437,7 @@ code, pre, .mono {
 /* ── BACK TO TOP ── */
 .back-to-top {
   position: fixed;
-  bottom: 92px;
+  top: 88px;
   right: 24px;
   width: 44px;
   height: 44px;
@@ -490,7 +447,7 @@ code, pre, .mono {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: none;
+  cursor: pointer;
   z-index: 100;
   transition: all var(--transition);
   color: var(--primary);

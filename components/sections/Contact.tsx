@@ -14,14 +14,13 @@ function Toast({ type, message }: { type: ToastType; message: string }) {
     <AnimatePresence>
       {type && (
         <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+          initial={{ opacity: 0, x: 40, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: 40, scale: 0.95 }}
           style={{
             position: 'fixed',
-            bottom: '2rem',
-            left: '50%',
-            transform: 'translateX(-50%)',
+            bottom: '150px',
+            right: '24px',
             padding: '0.75rem 1.5rem',
             borderRadius: 'var(--border-radius-lg)',
             background: type === 'success' ? 'var(--color-success-subtle)' : 'var(--color-error-subtle)',
@@ -34,7 +33,8 @@ function Toast({ type, message }: { type: ToastType; message: string }) {
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
-            whiteSpace: 'nowrap',
+            maxWidth: 'min(340px, calc(100vw - 48px))',
+            boxShadow: 'var(--shadow-md)',
           }}
         >
           {type === 'success' ? '✓' : '✕'} {message}
@@ -263,7 +263,7 @@ export function Contact() {
                         fontWeight: 500,
                         fontSize: '0.9rem',
                         textDecoration: 'none',
-                        cursor: 'none',
+                        
                         transition: 'color 0.2s ease',
                       }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--primary)')}
@@ -327,7 +327,7 @@ export function Contact() {
               width: '100%',
               justifyContent: 'center',
               opacity: sending ? 0.7 : 1,
-              cursor: sending ? 'not-allowed' : 'none',
+              cursor: sending ? 'not-allowed' : 'pointer',
               fontSize: '1rem',
               padding: '0.9rem 2rem',
               boxShadow: sending ? 'none' : 'var(--shadow-glow)',

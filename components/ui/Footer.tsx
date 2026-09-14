@@ -81,7 +81,7 @@ export function Footer() {
                   background: "var(--bg-elevated)",
                   border: "1px solid var(--border-default)",
                   color: "var(--text-muted)",
-                  cursor: "none",
+                  
                   transition: "all 0.2s ease",
                 }}
                 onMouseEnter={(e) => {
@@ -135,7 +135,7 @@ export function Footer() {
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontWeight: 500,
                     fontSize: "0.85rem",
-                    cursor: "none",
+                    
                     padding: "0.5rem 0",
                     transition: "color 0.2s ease",
                     textAlign: "left",

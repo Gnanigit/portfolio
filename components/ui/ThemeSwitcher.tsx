@@ -74,7 +74,7 @@ export function ThemeSwitcher() {
             borderRadius: '50%',
             background: 'transparent',
             border: 'none',
-            cursor: 'none',
+            
             padding: 0,
             display: 'flex',
             alignItems: 'center',
@@ -109,7 +109,7 @@ export function ThemeSwitcher() {
           borderRadius: '50%',
           background: 'var(--bg-overlay)',
           border: '1px solid var(--border-default)',
-          cursor: 'none',
+          
           padding: 0,
           display: 'flex',
           alignItems: 'center',

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Send } from 'lucide-react'
 import { ChatMessage } from './ChatMessage'
 import { PERSONAL } from '@/lib/constants'
 import type { ChatMessage as ChatMessageType } from '@/lib/types'
@@ -207,9 +208,11 @@ export function ChatBot() {
                     {PERSONAL.name}&apos;s Assistant
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--text-muted)', display: 'inline-block' }} />
-                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: "'Space Grotesk', sans-serif" }}>
-                      Coming Soon
+                    <span className="pulse-dot">
+                      <span className="pulse-dot-inner" />
+                    </span>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--color-success)', fontFamily: "'Space Grotesk', sans-serif" }}>
+                      Online
                     </span>
                   </div>
                 </div>
@@ -221,7 +224,6 @@ export function ChatBot() {
                   background: 'none',
                   border: 'none',
                   color: 'var(--text-muted)',
-                  cursor: 'none',
                   width: 32,
                   height: 32,
                   display: 'flex',
@@ -245,61 +247,64 @@ export function ChatBot() {
               </button>
             </div>
 
-            {/* Coming Soon Body */}
+            {/* Messages List */}
             <div
               style={{
                 flex: 1,
+                overflowY: 'auto',
+                padding: '1rem 1.25rem',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '2rem 1.5rem',
-                gap: '1rem',
-                textAlign: 'center',
+                gap: '0.5rem',
               }}
+              aria-live="polite"
             >
-              <div style={{ fontSize: '2.5rem' }}>🚀</div>
-              <div
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
-                  fontSize: '1.05rem',
-                  color: 'var(--text-primary)',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                Brains Loading...
-              </div>
-              <div
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '0.82rem',
-                  color: 'var(--text-muted)',
-                  lineHeight: 1.6,
-                  maxWidth: 220,
-                }}
-              >
-                This AI assistant is currently under construction. Check back soon — it&apos;ll be worth the wait.
-              </div>
-              <div
-                style={{
-                  marginTop: '0.5rem',
-                  padding: '0.35rem 0.85rem',
-                  borderRadius: '999px',
-                  border: '1px solid var(--border-accent)',
-                  color: 'var(--primary)',
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '0.72rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                Coming Soon
-              </div>
+              {messages.map((m) => (
+                <ChatMessage key={m.id} message={m} />
+              ))}
+              {loading && <TypingIndicator />}
+              {showSuggestions && messages.length === 1 && (
+                <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                    Try asking:
+                  </span>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    {SUGGESTED_QUESTIONS.map((q, i) => (
+                      <button
+                        key={i}
+                        onClick={() => sendMessage(q)}
+                        style={{
+                          padding: '0.5rem 1rem',
+                          borderRadius: '999px',
+                          border: '1px solid var(--border-accent)',
+                          background: 'transparent',
+                          color: 'var(--primary)',
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: '0.8rem',
+                          fontWeight: 500,
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'var(--primary-subtle)'
+                          e.currentTarget.style.borderColor = 'var(--primary)'
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'transparent'
+                          e.currentTarget.style.borderColor = 'var(--border-accent)'
+                        }}
+                        aria-label={q}
+                      >
+                        {q}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
 
-            {/* Disabled Input */}
+            {/* Input Row */}
             <div
               style={{
                 padding: '0.75rem 1rem',
@@ -309,46 +314,52 @@ export function ChatBot() {
                 alignItems: 'center',
                 background: 'var(--bg-elevated)',
                 flexShrink: 0,
-                opacity: 0.45,
-                pointerEvents: 'none',
               }}
             >
               <input
                 type="text"
-                placeholder="Coming soon..."
-                disabled
+                placeholder="Ask me anything..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                ref={inputRef}
+                disabled={loading}
+                aria-label="Message input"
                 style={{
                   flex: 1,
                   background: 'var(--bg-surface)',
                   border: '1px solid var(--border-default)',
                   borderRadius: 'var(--border-radius-lg)',
-                  color: 'var(--text-muted)',
+                  color: 'var(--text-primary)',
                   fontFamily: "'Inter', sans-serif",
                   fontSize: '0.85rem',
                   padding: '0.55rem 0.9rem',
                   outline: 'none',
-                  cursor: 'not-allowed',
+                  cursor: loading ? 'not-allowed' : 'text',
+                  transition: 'border-color 0.2s ease',
                 }}
               />
               <button
-                disabled
+                onClick={() => sendMessage(input)}
+                disabled={!input.trim() || loading}
+                aria-label="Send message"
                 style={{
                   width: 36,
                   height: 36,
                   borderRadius: 'var(--border-radius-md)',
-                  background: 'var(--bg-overlay)',
+                  background: !input.trim() || loading ? 'var(--bg-overlay)' : 'var(--primary)',
                   border: 'none',
-                  color: 'var(--text-muted)',
-                  cursor: 'not-allowed',
+                  color: !input.trim() || loading ? 'var(--text-muted)' : 'var(--bg-base)',
+                  cursor: !input.trim() || loading ? 'not-allowed' : 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
+                  opacity: !input.trim() || loading ? 0.5 : 1,
+                  transition: 'all 0.2s ease',
                 }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-                </svg>
+                <Send size={16} />
               </button>
             </div>
           </motion.div>
@@ -374,7 +385,7 @@ export function ChatBot() {
           background: 'var(--primary)',
           border: 'none',
           color: 'var(--bg-base)',
-          cursor: 'none',
+          
           zIndex: 199,
           display: 'flex',
           alignItems: 'center',

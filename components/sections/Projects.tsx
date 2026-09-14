@@ -47,7 +47,7 @@ function TiltCard({ project, index }: { project: Project; index: number }) {
           transform: `perspective(800px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg) scale(${hovered ? 1.02 : 1})`,
           transition: 'transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease',
           boxShadow: hovered ? 'var(--shadow-glow)' : 'var(--shadow-sm)',
-          cursor: 'none',
+          
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
@@ -202,7 +202,7 @@ function TiltCard({ project, index }: { project: Project; index: number }) {
                   color: 'var(--text-secondary)',
                   textDecoration: 'none',
                   fontFamily: "'Space Grotesk', sans-serif",
-                  cursor: 'none',
+                  
                   transition: 'color 0.2s ease',
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--primary)')}
@@ -228,7 +228,7 @@ function TiltCard({ project, index }: { project: Project; index: number }) {
                   color: 'var(--primary)',
                   textDecoration: 'none',
                   fontFamily: "'Space Grotesk', sans-serif",
-                  cursor: 'none',
+                  
                   transition: 'color 0.2s ease',
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--primary-hover)')}
@@ -307,7 +307,7 @@ export function Projects() {
               fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 600,
               fontSize: '0.82rem',
-              cursor: 'none',
+              
               background: activeFilter === tag ? 'var(--primary)' : 'var(--bg-surface)',
               color: activeFilter === tag ? 'var(--bg-base)' : 'var(--text-secondary)',
               border: `1px solid ${activeFilter === tag ? 'var(--primary)' : 'var(--border-default)'}`,

@@ -2,14 +2,8 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { motion } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import { Github, Linkedin, Twitter, Mail, Download, ArrowRight } from 'lucide-react'
 import { PERSONAL } from '@/lib/constants'
-
-const HeroScene = dynamic(
-  () => import('@/components/three/HeroScene').then((m) => m.HeroScene),
-  { ssr: false, loading: () => <div style={{ width: '100%', height: '100%' }} /> }
-)
 
 function useTypewriter(words: string[], speed = 80, pause = 1800) {
   const [text, setText] = useState('')
@@ -302,7 +296,7 @@ export function Hero() {
                 background: 'var(--bg-surface)',
                 border: '1px solid var(--border-default)',
                 color: 'var(--text-secondary)',
-                cursor: 'none',
+                
                 transition: 'all 0.2s ease',
               }}
               onMouseEnter={(e) => {
@@ -322,22 +316,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Right: 3D Scene */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.4, duration: 1.2, ease: 'easeOut' }}
-        style={{
-          position: 'relative',
-          height: 'clamp(320px, 50vw, 100%)',
-          minHeight: '320px',
-          paddingBottom: '5rem',
-          zIndex: 2,
-        }}
-        className="lg:h-auto"
-      >
-        <HeroScene />
-      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div

@@ -1,7 +1,6 @@
 import { Navbar } from '@/components/ui/Navbar'
 import { Footer } from '@/components/ui/Footer'
 import { PageLoader } from '@/components/ui/PageLoader'
-import { CustomCursor } from '@/components/ui/CustomCursor'
 import { BackToTop } from '@/components/ui/BackToTop'
 import { SpotlightEffect } from '@/components/ui/SpotlightEffect'
 import { ChatBot } from '@/components/chatbot/ChatBot'
@@ -16,7 +15,6 @@ export default function Home() {
   return (
     <>
       <PageLoader />
-      <CustomCursor />
       <SpotlightEffect />
       <Navbar />
       <main>

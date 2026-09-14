@@ -53,7 +53,7 @@ function SkillPill({
         background: hovered ? 'var(--primary-subtle)' : 'var(--bg-surface)',
         border: `1px solid ${hovered ? 'var(--border-accent)' : 'var(--border-default)'}`,
         borderRadius: '999px',
-        cursor: 'none',
+        
         transition: 'all 0.2s ease',
         boxShadow: hovered ? 'var(--shadow-glow)' : 'none',
         whiteSpace: 'nowrap',
