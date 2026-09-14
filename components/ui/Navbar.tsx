@@ -119,7 +119,7 @@ export function Navbar() {
                   fontWeight: 500,
                   fontSize: '0.9rem',
                   color: isActive ? 'var(--primary)' : 'var(--text-secondary)',
-                  cursor: 'none',
+                  
                   padding: '0.25rem 0',
                   position: 'relative',
                   transition: 'color 0.2s ease',
@@ -129,13 +129,17 @@ export function Navbar() {
                 {label}
                 {isActive && (
                   <motion.div
-                    layoutId="nav-indicator"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    exit={{ scaleX: 0 }}
+                    transition={{ duration: 0.2 }}
                     style={{
                       position: 'absolute',
                       bottom: -2, left: 0, right: 0,
                       height: 2,
                       background: 'var(--primary)',
                       borderRadius: 1,
+                      originX: 0,
                     }}
                   />
                 )}
