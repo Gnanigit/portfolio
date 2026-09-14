@@ -1,8 +1,44 @@
-import { GoogleGenerativeAI } from '@google/generative-ai'
+import { GoogleGenAI } from '@google/genai'
 import { NextRequest, NextResponse } from 'next/server'
 import { CHATBOT_SYSTEM_PROMPT } from '@/lib/constants'
+import { writeFileSync, mkdirSync } from 'fs'
+import { join } from 'path'
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
+let client: GoogleGenAI | null = null
+
+function getVertexAIClient(): GoogleGenAI {
+  if (client) return client
+
+  const projectId = process.env.GOOGLE_CLOUD_PROJECT
+  const location = process.env.GOOGLE_CLOUD_LOCATION || 'us-central1'
+  const credentialsJson = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON
+
+  if (!projectId) {
+    throw new Error('GOOGLE_CLOUD_PROJECT environment variable is required')
+  }
+
+  // If credentials are provided as base64 JSON, write them to a temp file for ADC
+  if (credentialsJson && !process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    try {
+      const credentialsStr = Buffer.from(credentialsJson, 'base64').toString('utf-8')
+      const tmpDir = join('/tmp', 'gcp')
+      mkdirSync(tmpDir, { recursive: true })
+      const credPath = join(tmpDir, 'credentials.json')
+      writeFileSync(credPath, credentialsStr, { encoding: 'utf-8', mode: 0o600 })
+      process.env.GOOGLE_APPLICATION_CREDENTIALS = credPath
+    } catch (e) {
+      console.warn('Failed to write credentials file, relying on ADC:', e)
+    }
+  }
+
+  client = new GoogleGenAI({
+    vertexai: true,
+    project: projectId,
+    location,
+  })
+
+  return client
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,10 +48,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid messages format' }, { status: 400 })
     }
 
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-3.5-flash-lite',
-      systemInstruction: CHATBOT_SYSTEM_PROMPT,
-    })
+    const ai = getVertexAIClient()
 
     // Convert to Gemini format: "assistant" → "model", all prior messages as history
     const history = messages.slice(0, -1).map((msg: { role: string; content: string }) => ({
@@ -25,13 +58,21 @@ export async function POST(req: NextRequest) {
 
     const lastMessage = messages[messages.length - 1].content
 
-    const chat = model.startChat({ history })
-    const result = await chat.sendMessage(lastMessage)
-    const text = result.response.text()
+    // Create a chat session with history and system instruction
+    const chat = ai.chats.create({
+      model: 'gemini-2.5-flash',
+      config: {
+        systemInstruction: CHATBOT_SYSTEM_PROMPT,
+      },
+      history,
+    })
+
+    const result = await chat.sendMessage({ message: lastMessage })
+    const text = result.text
 
     return NextResponse.json({ message: text })
   } catch (error) {
-    console.error('Gemini API error:', error)
+    console.error('Vertex AI Gemini error:', error)
     return NextResponse.json(
       { message: 'Sorry, I am unable to respond right now. Please try again later.' },
       { status: 500 }
