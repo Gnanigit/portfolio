@@ -468,7 +468,7 @@ code, pre, .mono {
   width: 380px;
   max-height: 580px;
   background: var(--bg-surface);
-  border: 1px solid var(--border-accent);
+  border: none;
   border-radius: 0;
   box-shadow: var(--shadow-md);
   z-index: 200;
