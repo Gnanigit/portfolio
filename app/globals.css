@@ -469,7 +469,7 @@ code, pre, .mono {
   max-height: 580px;
   background: var(--bg-surface);
   border: 1px solid var(--border-accent);
-  border-radius: var(--border-radius-xl);
+  border-radius: 0;
   box-shadow: var(--shadow-md);
   z-index: 200;
   display: flex;
@@ -483,6 +483,7 @@ code, pre, .mono {
     right: 50%;
     transform: translateX(50%);
     bottom: 90px;
+    border-radius: 0;
   }
 }
 @media (max-width: 640px) {
