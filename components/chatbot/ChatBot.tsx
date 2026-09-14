@@ -167,7 +167,7 @@ export function ChatBot() {
               position: 'fixed',
               inset: 0,
               background: 'rgba(0, 0, 0, 0.5)',
-              zIndex: 198,
+              zIndex: 999,
             }}
           />
         )}
@@ -192,7 +192,7 @@ export function ChatBot() {
               bottom: 0,
               width: '100%',
               maxWidth: '420px',
-              zIndex: 200,
+              zIndex: 1000,
               display: 'flex',
               flexDirection: 'column',
               background: 'var(--bg-base)',
@@ -397,7 +397,7 @@ export function ChatBot() {
               background: 'var(--primary)',
               border: 'none',
               color: 'var(--bg-base)',
-              zIndex: 199,
+              zIndex: 998,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -433,7 +433,7 @@ export function ChatBot() {
               background: 'var(--primary)',
               border: 'none',
               color: 'var(--bg-base)',
-              zIndex: 201,
+              zIndex: 1001,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
