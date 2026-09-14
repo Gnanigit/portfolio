@@ -442,41 +442,6 @@ export function ChatBot() {
         )}
       </AnimatePresence>
 
-      {/* Close button when panel is open */}
-      <AnimatePresence>
-        {open && (
-          <motion.button
-            key="close-btn"
-            onClick={() => setOpen(false)}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            aria-label="Close chat assistant"
-            style={{
-              position: 'fixed',
-              bottom: '24px',
-              right: '24px',
-              width: 56,
-              height: 56,
-              borderRadius: '50%',
-              background: 'var(--primary)',
-              border: 'none',
-              color: 'var(--bg-base)',
-              zIndex: 1001,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: 'var(--shadow-glow), var(--shadow-md)',
-              cursor: 'pointer',
-            }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M18 6L6 18M6 6l12 12" />
-            </svg>
-          </motion.button>
-        )}
-      </AnimatePresence>
     </>
   )
 }
