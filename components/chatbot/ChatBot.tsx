@@ -187,18 +187,20 @@ export function ChatBot() {
             aria-label="AI Chat Assistant"
             style={{
               position: 'fixed',
-              right: 0,
               top: 0,
+              right: 0,
               bottom: 0,
+              left: 'auto',
               width: '100%',
               maxWidth: '420px',
+              minHeight: '100vh',
+              height: '100dvh',
               zIndex: 1000,
               display: 'flex',
               flexDirection: 'column',
               background: 'var(--bg-base)',
               borderLeft: '1px solid var(--border-default)',
               boxShadow: 'var(--shadow-md)',
-              height: '100vh',
             }}
           >
             {/* Header */}
