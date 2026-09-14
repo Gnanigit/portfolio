@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Copy, Check } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import type { ChatMessage as ChatMessageType } from '@/lib/types'
 
 function formatTime(date: Date) {
@@ -63,11 +65,17 @@ export function ChatMessage({ message }: { message: ChatMessageType }) {
             lineHeight: 1.55,
             fontFamily: "'Inter', sans-serif",
             border: isUser ? 'none' : '1px solid var(--border-default)',
-            whiteSpace: 'pre-wrap',
             wordBreak: 'break-word',
           }}
+          className="markdown-content"
         >
-          {message.content}
+          {isUser ? (
+            <div style={{ whiteSpace: 'pre-wrap' }}>{message.content}</div>
+          ) : (
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ p: ({ children }) => <p style={{ margin: 0, marginBottom: '0.5rem' }}>{children}</p>, ul: ({ children }) => <ul style={{ margin: '0.5rem 0', paddingLeft: '1.5rem' }}>{children}</ul>, li: ({ children }) => <li style={{ margin: '0.2rem 0' }}>{children}</li>, strong: ({ children }) => <strong style={{ fontWeight: 600, color: 'inherit' }}>{children}</strong>, code: ({ children }) => <code style={{ background: 'var(--bg-overlay)', padding: '0.1rem 0.4rem', borderRadius: '0.25rem', fontFamily: "'Mono', monospace", fontSize: '0.8em' }}>{children}</code>, ol: ({ children }) => <ol style={{ margin: '0.5rem 0', paddingLeft: '1.5rem' }}>{children}</ol> }}>
+              {message.content}
+            </ReactMarkdown>
+          )}
         </div>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
           <span
