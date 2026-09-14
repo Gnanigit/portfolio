@@ -245,14 +245,6 @@ export function ChatBot() {
                   >
                     Assistant
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', marginTop: '0.2rem' }}>
-                    <span className="pulse-dot">
-                      <span className="pulse-dot-inner" />
-                    </span>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--color-success)', fontFamily: "'Space Grotesk', sans-serif" }}>
-                      Online
-                    </span>
-                  </div>
                 </div>
               </div>
               <button
