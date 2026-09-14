@@ -173,15 +173,15 @@ export function ChatBot() {
         )}
       </AnimatePresence>
 
-      {/* Right Side Panel - Full Height */}
+      {/* Full Screen Chat Panel */}
       <AnimatePresence>
         {open && (
           <motion.div
             key="chat-panel"
-            initial={{ x: 500 }}
-            animate={{ x: 0 }}
-            exit={{ x: 500 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             className="chat-panel"
             role="dialog"
             aria-label="AI Chat Assistant"
@@ -190,15 +190,13 @@ export function ChatBot() {
               right: 0,
               top: 0,
               bottom: 0,
+              left: 0,
               width: '100%',
-              maxWidth: '420px',
+              height: '100%',
               zIndex: 1000,
               display: 'flex',
               flexDirection: 'column',
               background: 'var(--bg-base)',
-              borderLeft: '1px solid var(--border-default)',
-              boxShadow: 'var(--shadow-md)',
-              height: '100vh',
             }}
           >
             {/* Header */}
@@ -253,6 +251,36 @@ export function ChatBot() {
                   </div>
                 </div>
               </div>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close chat"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text-muted)',
+                  width: 36,
+                  height: 36,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 'var(--border-radius-sm)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  flexShrink: 0,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'var(--bg-overlay)'
+                  e.currentTarget.style.color = 'var(--text-primary)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'none'
+                  e.currentTarget.style.color = 'var(--text-muted)'
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
             </div>
 
             {/* Messages List */}
@@ -412,41 +440,6 @@ export function ChatBot() {
         )}
       </AnimatePresence>
 
-      {/* Close button when panel is open */}
-      <AnimatePresence>
-        {open && (
-          <motion.button
-            key="close-btn"
-            onClick={() => setOpen(false)}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            aria-label="Close chat assistant"
-            style={{
-              position: 'fixed',
-              bottom: '24px',
-              right: '24px',
-              width: 56,
-              height: 56,
-              borderRadius: '50%',
-              background: 'var(--primary)',
-              border: 'none',
-              color: 'var(--bg-base)',
-              zIndex: 1001,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: 'var(--shadow-glow), var(--shadow-md)',
-              cursor: 'pointer',
-            }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M18 6L6 18M6 6l12 12" />
-            </svg>
-          </motion.button>
-        )}
-      </AnimatePresence>
     </>
   )
 }
