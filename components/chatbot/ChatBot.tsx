@@ -243,7 +243,7 @@ export function ChatBot() {
                       color: 'var(--text-primary)',
                     }}
                   >
-                    Assistant
+                    AI Assistant
                   </div>
                 </div>
               </div>
