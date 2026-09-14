@@ -153,23 +153,57 @@ export function ChatBot() {
         }
       `}</style>
 
-      {/* Chat panel */}
+      {/* Backdrop */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setOpen(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0, 0, 0, 0.5)',
+              zIndex: 198,
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Left Side Panel */}
       <AnimatePresence>
         {open && (
           <motion.div
             key="chat-panel"
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ x: -400 }}
+            animate={{ x: 0 }}
+            exit={{ x: -400 }}
             transition={{ type: 'spring', stiffness: 350, damping: 30 }}
             className="chat-panel"
             role="dialog"
             aria-label="AI Chat Assistant"
+            style={{
+              position: 'fixed',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: '100%',
+              maxWidth: '400px',
+              zIndex: 200,
+              display: 'flex',
+              flexDirection: 'column',
+              background: 'var(--bg-base)',
+              borderRight: '1px solid var(--border-default)',
+              boxShadow: 'var(--shadow-md)',
+            }}
           >
             {/* Header */}
             <div
               style={{
-                padding: '1rem 1.25rem',
+                padding: '1.25rem',
                 borderBottom: '1px solid var(--border-default)',
                 display: 'flex',
                 alignItems: 'center',
@@ -178,11 +212,11 @@ export function ChatBot() {
                 flexShrink: 0,
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1 }}>
                 <div
                   style={{
-                    width: 36,
-                    height: 36,
+                    width: 40,
+                    height: 40,
                     borderRadius: '50%',
                     background: 'var(--primary)',
                     display: 'flex',
@@ -190,24 +224,25 @@ export function ChatBot() {
                     justifyContent: 'center',
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontWeight: 900,
-                    fontSize: '0.85rem',
+                    fontSize: '0.9rem',
                     color: 'var(--bg-base)',
+                    flexShrink: 0,
                   }}
                 >
                   {PERSONAL.initials}
                 </div>
-                <div>
+                <div style={{ flex: 1 }}>
                   <div
                     style={{
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontWeight: 700,
-                      fontSize: '0.9rem',
+                      fontSize: '0.95rem',
                       color: 'var(--text-primary)',
                     }}
                   >
-                    {PERSONAL.name}&apos;s Assistant
+                    Assistant
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', marginTop: '0.2rem' }}>
                     <span className="pulse-dot">
                       <span className="pulse-dot-inner" />
                     </span>
@@ -217,34 +252,6 @@ export function ChatBot() {
                   </div>
                 </div>
               </div>
-              <button
-                onClick={() => setOpen(false)}
-                aria-label="Close chat"
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--text-muted)',
-                  width: 32,
-                  height: 32,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 'var(--border-radius-sm)',
-                  transition: 'all 0.2s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'var(--bg-overlay)'
-                  e.currentTarget.style.color = 'var(--text-primary)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'none'
-                  e.currentTarget.style.color = 'var(--text-muted)'
-                }}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-              </button>
             </div>
 
             {/* Messages List */}
@@ -366,50 +373,79 @@ export function ChatBot() {
         )}
       </AnimatePresence>
 
-      {/* Floating button */}
-      <motion.button
-        onClick={() => setOpen((o) => !o)}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 2, type: 'spring', stiffness: 260, damping: 20 }}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.92 }}
-        aria-label={open ? 'Close chat assistant' : 'Open chat assistant'}
-        style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          width: 56,
-          height: 56,
-          borderRadius: '50%',
-          background: 'var(--primary)',
-          border: 'none',
-          color: 'var(--bg-base)',
-          
-          zIndex: 199,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: 'var(--shadow-glow), var(--shadow-md)',
-          transition: 'background 0.2s ease',
-        }}
-      >
-        <AnimatePresence mode="wait">
-          {open ? (
-            <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M18 6L6 18M6 6l12 12" />
-              </svg>
-            </motion.div>
-          ) : (
-            <motion.div key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-              </svg>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.button>
+      {/* Toggle button - positioned fixed on right side */}
+      <AnimatePresence>
+        {!open && (
+          <motion.button
+            key="open-btn"
+            onClick={() => setOpen(true)}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ delay: 2, type: 'spring', stiffness: 260, damping: 20 }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            aria-label="Open chat assistant"
+            style={{
+              position: 'fixed',
+              bottom: '24px',
+              right: '24px',
+              width: 56,
+              height: 56,
+              borderRadius: '50%',
+              background: 'var(--primary)',
+              border: 'none',
+              color: 'var(--bg-base)',
+              zIndex: 199,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: 'var(--shadow-glow), var(--shadow-md)',
+              cursor: 'pointer',
+            }}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Close button when panel is open */}
+      <AnimatePresence>
+        {open && (
+          <motion.button
+            key="close-btn"
+            onClick={() => setOpen(false)}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            aria-label="Close chat assistant"
+            style={{
+              position: 'fixed',
+              bottom: '24px',
+              right: '24px',
+              width: 56,
+              height: 56,
+              borderRadius: '50%',
+              background: 'var(--primary)',
+              border: 'none',
+              color: 'var(--bg-base)',
+              zIndex: 201,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: 'var(--shadow-glow), var(--shadow-md)',
+              cursor: 'pointer',
+            }}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </>
   )
 }
