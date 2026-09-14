@@ -173,31 +173,32 @@ export function ChatBot() {
         )}
       </AnimatePresence>
 
-      {/* Left Side Panel */}
+      {/* Right Side Panel - Full Height */}
       <AnimatePresence>
         {open && (
           <motion.div
             key="chat-panel"
-            initial={{ x: -400 }}
+            initial={{ x: 500 }}
             animate={{ x: 0 }}
-            exit={{ x: -400 }}
+            exit={{ x: 500 }}
             transition={{ type: 'spring', stiffness: 350, damping: 30 }}
             className="chat-panel"
             role="dialog"
             aria-label="AI Chat Assistant"
             style={{
               position: 'fixed',
-              left: 0,
+              right: 0,
               top: 0,
               bottom: 0,
               width: '100%',
-              maxWidth: '400px',
+              maxWidth: '420px',
               zIndex: 200,
               display: 'flex',
               flexDirection: 'column',
               background: 'var(--bg-base)',
-              borderRight: '1px solid var(--border-default)',
+              borderLeft: '1px solid var(--border-default)',
               boxShadow: 'var(--shadow-md)',
+              height: '100vh',
             }}
           >
             {/* Header */}
