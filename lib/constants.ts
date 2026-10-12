@@ -13,7 +13,7 @@ export const PERSONAL = {
   phone: "+91 9392864866",
   github: "https://github.com/Gnanigit",
   linkedin: "https://linkedin.com/in/gnaneswar-yalla-730ba4250",
-  twitter: "https://twitter.com/gnani",
+  twitter: "https://twitter.com/gnaniyalla",
   resumeUrl: "/Gnaneswar_Yalla_Resume.pdf",
   roles: [
     "Full Stack Developer",
